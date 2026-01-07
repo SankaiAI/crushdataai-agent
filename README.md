@@ -132,30 +132,6 @@ This prevents the common AI mistakes:
 - ❌ Incorrect JOIN types
 - ❌ Unreasonable totals
 
-## 📁 Project Structure
-
-```
-.shared/data-analyst/
-├── scripts/
-│   ├── core.py      # BM25 search engine
-│   └── search.py    # CLI entry point
-└── data/
-    ├── workflows.csv
-    ├── metrics.csv
-    ├── charts.csv
-    ├── cleaning.csv
-    ├── sql-patterns.csv
-    ├── python-patterns.csv
-    ├── databases.csv
-    ├── report-ux.csv
-    ├── validation.csv
-    └── industries/
-        ├── saas.csv
-        ├── ecommerce.csv
-        ├── finance.csv
-        └── marketing.csv
-```
-
 ## 📝 License
 
 Apache 2.0
