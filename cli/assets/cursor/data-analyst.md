@@ -16,6 +16,7 @@ Before coding, ask:
 - Which tables contain the data?
 - How does YOUR company define the key metrics?
 - **Script Folder**: Save scripts in `analysis/`. Create folder if needed.
+- **Python Env**: Check for `venv`. If missing, create `venv`. Always run inside venv.
 
 ### 2. Secure Data Access
 - **Check Connections**: Run `npx crushdataai connections` first.

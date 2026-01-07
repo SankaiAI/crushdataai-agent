@@ -25,7 +25,8 @@ Before writing any code, ask the user:
 2. **Data Context**: Which tables contain the data? What time range?
 3. **Metric Definitions**: How does YOUR company define the key metrics? Any filters?
 
-4. **Script Organization**: All analysis scripts must be saved in an `analysis/` folder. Create this folder if it doesn't exist.
+4. **Script Organization**: All analysis scripts must be saved in an `analysis/` folder.
+5. **Python Environment**: Check for `venv` or `.venv`. If missing, run `python3 -m venv venv`. Install/Run inside venv.
 
 ### 2. Secure Data Access
 - **Check Connections**: Run `npx crushdataai connections` first.

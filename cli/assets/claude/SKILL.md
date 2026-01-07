@@ -31,9 +31,13 @@ When user requests data analysis work (analyze, query, dashboard, metrics, EDA, 
    - What timezone should I use for dates?
 
 4. **Script Organization**
-   - Save all analysis scripts in an `analysis/` folder.
-   - Create this folder if it does not exist.
-   - What timezone should I use for dates?
+    - Save all analysis scripts in an `analysis/` folder.
+    - Create this folder if it does not exist.
+   
+5. **Python Environment**
+   - Check for `venv` or `.venv`. If missing, `python3 -m venv venv`.
+   - Install dependencies in venv (`venv/bin/pip install`).
+   - Run scripts using venv python (`venv/bin/python`).
 ```
 
 ### 1b. Secure Data Access
