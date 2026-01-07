@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+*.lock
+package-lock.json
+
+# Build output
+cli/dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+*.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test
+coverage/
+.nyc_output/
+
+# Temp
+*.tmp
+*.temp
+.cache/
+
+# Skill sample (reference only, not part of this project)
+skill-sample/
+
+# Internal docs (PRD, BACKLOG, etc)
+docs/

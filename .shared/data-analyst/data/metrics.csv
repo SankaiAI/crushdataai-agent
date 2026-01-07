@@ -1,0 +1,74 @@
+Metric Name,Abbreviation,Industry,Formula,Interpretation,Good Benchmark,Related Metrics,Visualization
+Monthly Recurring Revenue,MRR,SaaS,"SUM(active_subscriptions * monthly_price)","Predictable monthly revenue from subscriptions","Growing 10%+ MoM for early stage","ARR, ARPU, Churn",Line chart with trend
+Annual Recurring Revenue,ARR,SaaS,"MRR * 12","Annualized predictable revenue","ARR > $1M for Series A","MRR, Growth Rate",KPI card with YoY change
+Customer Churn Rate,Churn,SaaS,"Churned Customers / Total Customers at Period Start * 100","Percentage of customers lost in period","< 5% monthly for B2B SaaS","NRR, Retention Rate, Customer Lifetime",Line chart or gauge
+Customer Acquisition Cost,CAC,SaaS,"(Sales Spend + Marketing Spend) / New Customers Acquired","Total cost to acquire one new customer","LTV:CAC > 3:1","LTV, Payback Period, Marketing Spend",KPI card with trend
+Customer Lifetime Value,LTV,SaaS,"ARPU * Customer Lifetime (1/Churn Rate)","Total revenue expected from a customer over their lifetime","LTV:CAC > 3:1","CAC, Churn, ARPU",KPI card
+LTV to CAC Ratio,LTV:CAC,SaaS,"LTV / CAC","Health of unit economics - value vs acquisition cost","> 3:1 for sustainable growth","LTV, CAC",Gauge or ratio display
+Net Revenue Retention,NRR,SaaS,"(MRR Start + Expansion - Contraction - Churn) / MRR Start * 100","Revenue retained from existing customers including expansion","> 100% means growing without new customers","Gross Retention, Expansion Revenue",Line chart
+Average Revenue Per User,ARPU,SaaS,"Total Revenue / Total Customers","Average revenue generated per customer","Depends on pricing model","MRR, LTV, Pricing Tier Distribution",KPI card
+Payback Period,Payback,SaaS,"CAC / (ARPU * Gross Margin)","Months to recover customer acquisition cost","< 12 months for healthy SaaS","CAC, ARPU, Gross Margin",KPI card
+Gross Revenue Retention,GRR,SaaS,"(MRR Start - Contraction - Churn) / MRR Start * 100","Revenue retained excluding expansion","> 90% for enterprise SaaS","NRR, Churn",Line chart
+Trial to Paid Conversion,Trial Conv,SaaS,"Paid Signups / Trial Signups * 100","Percentage of trials that become paying customers","15-25% for freemium, 40-60% for free trial","Activation Rate, Time to Conversion",Funnel chart
+Activation Rate,Activation,SaaS,"Activated Users / Signups * 100","Users who reach aha moment","Varies by product - define activation first","Trial Conversion, Feature Adoption",Funnel chart
+Daily Active Users,DAU,SaaS,"COUNT(DISTINCT users active today)","Users engaging with product daily","Depends on product type","MAU, DAU/MAU Ratio, Stickiness",Line chart
+Monthly Active Users,MAU,SaaS,"COUNT(DISTINCT users active this month)","Users engaging with product monthly","Target based on TAM","DAU, Retention",Line chart
+Stickiness Ratio,DAU/MAU,SaaS,"DAU / MAU * 100","How often users return - product habit","> 20% is good, > 50% is exceptional","DAU, MAU, Retention",Gauge
+Expansion Revenue,Expansion MRR,SaaS,"MRR from upsells + cross-sells","Revenue growth from existing customers","> 30% of total growth is healthy","NRR, Upsell Rate, Cross-sell Rate",Stacked bar chart
+Quick Ratio,Quick Ratio,SaaS,"(New MRR + Expansion MRR) / (Churned MRR + Contraction MRR)","Growth efficiency - new vs lost revenue","> 4:1 indicates strong growth","MRR Growth, Churn, Expansion",KPI card
+Conversion Rate,Conv Rate,E-commerce,"Purchases / Sessions * 100","Percentage of visits that result in purchase","2-3% average, 5%+ is excellent","AOV, Traffic, Cart Abandonment",Line chart with trend
+Average Order Value,AOV,E-commerce,"Total Revenue / Number of Orders","Average amount spent per order","Varies by industry - track trend over time","Conversion Rate, Items per Order",KPI card
+Cart Abandonment Rate,Cart Abandon,E-commerce,"(Carts Created - Purchases) / Carts Created * 100","Percentage of shopping carts not completed","Industry average ~70%","Checkout Conversion, Payment Failure Rate",Funnel chart
+Customer Acquisition Cost,CAC,E-commerce,"Marketing Spend / New Customers","Cost to acquire one new customer","Should be < first order profit","LTV, First Order Margin",KPI card
+Customer Lifetime Value,CLV,E-commerce,"AOV * Purchase Frequency * Customer Lifespan","Total expected revenue from a customer","CLV:CAC > 3:1","CAC, Repeat Rate, AOV",KPI card
+Repeat Purchase Rate,Repeat Rate,E-commerce,"Customers with 2+ Orders / Total Customers * 100","Percentage of customers who buy again","> 30% is healthy for most categories","Retention, CLV, Purchase Frequency",Line chart
+Purchase Frequency,Purchase Freq,E-commerce,"Total Orders / Unique Customers","Average orders per customer per period","Varies by category - track trend","Repeat Rate, CLV",KPI card
+Revenue Per Visitor,RPV,E-commerce,"Total Revenue / Total Visitors","Revenue generated per site visit","Track trend - combines traffic and conversion","Conversion Rate, AOV, Traffic",KPI card
+Return Rate,Return Rate,E-commerce,"Returned Orders / Total Orders * 100","Percentage of orders returned","< 20% for most categories, < 30% for apparel","Net Revenue, Customer Complaints",Line chart
+Gross Margin,Gross Margin,E-commerce,"(Revenue - COGS) / Revenue * 100","Profit after product costs","40-60% typical for retail","Net Margin, COGS, Pricing",KPI card
+Inventory Turnover,Inv Turnover,E-commerce,"COGS / Average Inventory","How often inventory sells and is replaced","Higher is better - varies by category","Days of Inventory, Stock-outs",KPI card
+Customer Satisfaction Score,CSAT,E-commerce,"Satisfied Responses / Total Responses * 100","Customer satisfaction with specific interaction","> 80% is good, > 90% is excellent","NPS, Reviews, Return Rate",Gauge
+Net Promoter Score,NPS,E-commerce,"% Promoters - % Detractors","Likelihood to recommend (-100 to +100)","> 50 is excellent, > 70 is world class","CSAT, Reviews, Retention",Gauge
+Gross Profit Margin,GPM,Finance,"(Revenue - COGS) / Revenue * 100","Profit after direct costs","Varies by industry - compare to peers","Net Margin, Operating Margin",KPI card
+Net Profit Margin,NPM,Finance,"Net Income / Revenue * 100","Profit after all expenses","Positive and growing","Gross Margin, Operating Expenses",KPI card
+Operating Margin,Op Margin,Finance,"Operating Income / Revenue * 100","Profit from core operations","Positive indicates viable business model","Gross Margin, SG&A",KPI card
+Return on Investment,ROI,Finance,"(Gain - Cost) / Cost * 100","Return generated from investment","> 0% means profitable investment","IRR, Payback Period",KPI card
+Return on Assets,ROA,Finance,"Net Income / Total Assets * 100","How efficiently assets generate profit","> 5% is generally good","ROE, Asset Turnover",KPI card
+Return on Equity,ROE,Finance,"Net Income / Shareholders Equity * 100","Return generated on shareholder investment","> 15% is considered good","ROA, Leverage Ratio",KPI card
+Current Ratio,Current Ratio,Finance,"Current Assets / Current Liabilities","Ability to pay short-term obligations","> 1.5 indicates healthy liquidity","Quick Ratio, Working Capital",KPI card
+Debt to Equity Ratio,D/E Ratio,Finance,"Total Debt / Shareholders Equity","Financial leverage - debt vs equity","< 2 is generally healthy","Leverage, Interest Coverage",KPI card
+Working Capital,Working Cap,Finance,"Current Assets - Current Liabilities","Operating liquidity available","Positive and growing","Cash Flow, Current Ratio",KPI card
+Cash Flow from Operations,CFO,Finance,"Net cash from core business operations","Cash generated by business","Positive and growing","Net Income, Free Cash Flow",Line chart
+Free Cash Flow,FCF,Finance,"CFO - Capital Expenditures","Cash available after investments","Positive for mature companies","CFO, CapEx, Dividends",Line chart
+Revenue Growth Rate,Rev Growth,Finance,"(Current Revenue - Prior Revenue) / Prior Revenue * 100","Rate of revenue increase","Depends on stage - 20%+ for growth companies","MoM, YoY, CAGR",Line chart
+Burn Rate,Burn Rate,Finance,"Monthly Operating Expenses - Monthly Revenue","Net cash consumed per month","Runway > 18 months is safe","Runway, Cash Balance",Line chart
+Runway,Runway,Finance,"Cash Balance / Burn Rate","Months of operations remaining","> 18 months for fundraising","Burn Rate, Cash Balance",KPI card
+Click-Through Rate,CTR,Marketing,"Clicks / Impressions * 100","Effectiveness of ad or content","2-5% for search ads, 0.5-1% for display","CPC, Conversion Rate",Line chart
+Cost Per Click,CPC,Marketing,"Ad Spend / Clicks","Cost for each ad click","Varies by industry and platform","CTR, CPA, Quality Score",KPI card
+Cost Per Acquisition,CPA,Marketing,"Marketing Spend / Conversions","Cost to acquire a customer or lead","Should be < customer value","CAC, ROAS, Conversion Rate",KPI card
+Return on Ad Spend,ROAS,Marketing,"Revenue from Ads / Ad Spend","Revenue generated per ad dollar","3:1 or higher is typically profitable","ROI, CPA, Conversion Rate",KPI card
+Cost Per Mille,CPM,Marketing,"(Ad Spend / Impressions) * 1000","Cost per thousand impressions","Varies by channel and targeting","CTR, Reach, Frequency",KPI card
+Conversion Rate,Conv Rate,Marketing,"Conversions / Total Visitors * 100","Percentage of visitors taking desired action","Varies by goal - track improvement","CTR, CPA, Landing Page Views",Funnel chart
+Lead to Customer Rate,Lead Conv,Marketing,"Customers / Leads * 100","Percentage of leads that become customers","10-20% for B2B SaaS","SQL Rate, Sales Cycle",Funnel chart
+Marketing Qualified Leads,MQLs,Marketing,"COUNT leads meeting marketing criteria","Leads ready for sales follow-up","Growing with stable conversion rate","SQLs, Lead Velocity",Line chart
+Sales Qualified Leads,SQLs,Marketing,"COUNT leads meeting sales criteria","Leads accepted by sales team","Conversion from MQL > 30%","MQLs, Opportunities, Win Rate",Line chart
+Email Open Rate,Open Rate,Marketing,"Opens / Emails Delivered * 100","Percentage of emails opened","15-25% is typical","CTR, Unsubscribe Rate",Line chart
+Email Click Rate,Email CTR,Marketing,"Clicks / Emails Delivered * 100","Percentage of emails clicked","2-5% is typical","Open Rate, Conversion Rate",Line chart
+Unsubscribe Rate,Unsub Rate,Marketing,"Unsubscribes / Emails Delivered * 100","Percentage of recipients unsubscribing","< 0.5% is healthy","List Growth, Complaint Rate",Line chart
+Social Engagement Rate,Engagement,Marketing,"(Likes + Comments + Shares) / Followers * 100","Interaction with social content","1-5% depending on platform","Reach, Impressions, Follower Growth",Bar chart
+Bounce Rate,Bounce Rate,Marketing,"Single-page Sessions / Total Sessions * 100","Visitors leaving without interaction","< 40% for content sites, < 60% for landing pages","Time on Site, Pages per Session",Line chart
+Pages per Session,Pages/Session,Marketing,"Total Pageviews / Sessions","Content engagement depth","> 2 indicates good engagement","Bounce Rate, Session Duration",KPI card
+Average Session Duration,Avg Session,Marketing,"Total Session Duration / Sessions","Time spent on site per visit","> 2 minutes for content sites","Bounce Rate, Pages per Session",KPI card
+Brand Awareness,Awareness,Marketing,"Survey-based or search volume","Percentage aware of brand","Track growth over time","Share of Voice, Brand Recall",Line chart
+Share of Voice,SOV,Marketing,"Brand Mentions / Total Category Mentions * 100","Brand visibility vs competitors","Growing share indicates market gains","Brand Awareness, Market Share",Pie chart
+Attribution Rate,Attribution,Marketing,"Attributed Conversions / Total Conversions * 100","Conversions trackable to marketing","Higher is better for optimization","Multi-touch Attribution",Stacked bar
+Customer Retention Rate,Retention,General,"(Customers End - New Customers) / Customers Start * 100","Percentage of customers retained","Depends on industry - 90%+ for SaaS","Churn Rate, LTV",Line chart
+Week 1 Retention,W1 Retention,General,"Users Active Week 1 / Signups * 100","Users returning after first week","25-40% for consumer apps","D1, D7, D30 Retention",Cohort heatmap
+Month 1 Retention,M1 Retention,General,"Users Active Month 1 / Signups * 100","Users returning after first month","20-30% for consumer apps","Week 1, Month 3 Retention",Cohort heatmap
+User Growth Rate,User Growth,General,"(Users End - Users Start) / Users Start * 100","Rate of user base expansion","Depends on stage","DAU, MAU, Signups",Line chart
+Feature Adoption Rate,Feature Adopt,General,"Users Using Feature / Total Users * 100","Uptake of specific feature","> 50% for core features","Activation, Engagement",Bar chart
+Time to Value,TTV,General,"Time from signup to first value moment","Speed of initial user success","Shorter is better - define value moment","Activation Rate, Onboarding Completion",Histogram
+Support Tickets per User,Tickets/User,General,"Total Tickets / Active Users","Support burden per user","Decreasing over time is good","CSAT, Resolution Time",Line chart
+Average Resolution Time,Avg Resolution,General,"Total Resolution Time / Tickets Resolved","Time to resolve support tickets","Depends on complexity - track trend","First Response Time, Ticket Volume",Line chart
+Employee Net Promoter Score,eNPS,General,"% Promoters - % Detractors","Employee satisfaction and loyalty","> 20 is good, > 50 is excellent","Turnover Rate, Engagement",Gauge
+Revenue per Employee,Rev/Employee,General,"Total Revenue / Number of Employees","Efficiency and productivity","$200K+ for SaaS","Headcount, Revenue Growth",KPI card

@@ -1,0 +1,24 @@
+Metric Name,Abbreviation,Category,Formula,Interpretation,Good Benchmark,Related Metrics,Visualization
+Gross Profit Margin,GPM,Profitability,"(Revenue - COGS) / Revenue * 100","Profit after direct costs","Varies by industry; 40-60% typical","Net Margin, COGS",KPI card
+Net Profit Margin,NPM,Profitability,"Net Income / Revenue * 100","Bottom line profitability","Positive and stable","GPM, Operating Margin",KPI card
+Operating Margin,Op Margin,Profitability,"Operating Income / Revenue * 100","Core business profitability","Positive for viable business","EBITDA Margin, SG&A",KPI card
+EBITDA Margin,EBITDA,Profitability,"EBITDA / Revenue * 100","Cash-based profitability","Used for comparison across capital structures","Operating Margin, D&A",KPI card
+Return on Assets,ROA,Returns,"Net Income / Total Assets * 100","Asset efficiency","> 5% generally good","ROE, Asset Turnover",KPI card
+Return on Equity,ROE,Returns,"Net Income / Shareholders Equity * 100","Return to shareholders","> 15% considered good","ROA, Leverage",KPI card
+Return on Investment,ROI,Returns,"(Gain - Cost) / Cost * 100","Investment profitability","> 0% means profitable","IRR, Payback Period",KPI card
+Return on Capital Employed,ROCE,Returns,"EBIT / Capital Employed * 100","Efficiency of capital use","> cost of capital","ROIC, Capital Efficiency",KPI card
+Current Ratio,Current,Liquidity,"Current Assets / Current Liabilities","Short-term liquidity","1.5-2.0 typically healthy","Quick Ratio, Working Capital",Gauge
+Quick Ratio,Quick Ratio,Liquidity,"(Current Assets - Inventory) / Current Liabilities","Immediate liquidity","> 1.0 generally healthy","Current Ratio, Cash Ratio",Gauge
+Cash Ratio,Cash Ratio,Liquidity,"Cash / Current Liabilities","Most conservative liquidity","> 0.5 is comfortable","Quick Ratio, Operating Cash",KPI card
+Working Capital,Working Cap,Liquidity,"Current Assets - Current Liabilities","Operating liquidity","Positive and stable","Current Ratio, Cash Conversion",KPI card
+Debt to Equity Ratio,D/E,Leverage,"Total Debt / Shareholders Equity","Financial leverage","< 2.0 generally healthy","Leverage Ratio, Interest Coverage",KPI card
+Debt to Assets Ratio,D/A,Leverage,"Total Debt / Total Assets","Asset leverage","< 0.5 is conservative","D/E, Asset Coverage",KPI card
+Interest Coverage Ratio,ICR,Leverage,"EBIT / Interest Expense","Ability to pay interest","> 3.0 is comfortable","D/E, Debt Service",KPI card
+Asset Turnover,Asset Turn,Efficiency,"Revenue / Average Total Assets","Asset productivity","Higher is more efficient","ROA, Inventory Turnover",KPI card
+Receivables Turnover,AR Turn,Efficiency,"Revenue / Average Accounts Receivable","Collection efficiency","Higher = faster collection","DSO, Cash Conversion",KPI card
+Days Sales Outstanding,DSO,Efficiency,"(Accounts Receivable / Revenue) * 365","Average collection period","Lower is better; industry varies","AR Turnover, Cash Cycle",KPI card
+Cash Conversion Cycle,CCC,Efficiency,"DIO + DSO - DPO","Days to convert inventory to cash","Shorter is better","DSO, DIO, DPO",KPI card
+Revenue Growth Rate,Rev Growth,Growth,"(Current - Prior) / Prior * 100","Revenue increase rate","Depends on stage","YoY, MoM, CAGR",Line chart
+CAGR,CAGR,Growth,"(End Value / Start Value)^(1/Years) - 1","Compound annual growth","Track vs peers and market","Revenue Growth, Projections",KPI card
+Burn Rate,Burn,Cash,"Monthly Operating Expenses - Monthly Revenue","Net cash consumed","Lower = more runway","Runway, Cash Balance",Line chart
+Runway,Runway,Cash,"Cash Balance / Monthly Burn Rate","Months of operations left","> 18 months for fundraising","Burn Rate, Cash Balance",KPI card
