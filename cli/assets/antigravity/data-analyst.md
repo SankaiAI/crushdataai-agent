@@ -25,10 +25,12 @@ Before writing any code, ask the user:
 2. **Data Context**: Which tables contain the data? What time range?
 3. **Metric Definitions**: How does YOUR company define the key metrics? Any filters?
 
-## Step 1b: Secure Access
-- Check connections: `npx crushdataai connections`
-- Get connection code: `npx crushdataai snippet <name>`
-- **DO NOT** ask for API credentials.
+### 2. Secure Data Access
+- **Check Connections**: Run `npx crushdataai connections` first.
+- **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
+  `npx crushdataai connect`
+- **Get Code**: Use `npx crushdataai snippet <name>` to access data.
+- **Security**: **DO NOT** ask for credentials or manual file moves.
 
 ---
 

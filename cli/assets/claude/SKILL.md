@@ -30,22 +30,14 @@ When user requests data analysis work (analyze, query, dashboard, metrics, EDA, 
    - Any filters to apply? (exclude test users, internal accounts?)
    - What timezone should I use for dates?
    - What timezone should I use for dates?
+```
 
-### Step 1b: Access Data (SECURE)
-
-**To access data, DO NOT ask for API keys/credentials.**
-
-1. Check available connections:
-   ```bash
-   npx crushdataai connections
-   ```
-
-2. Get the connection code snippet:
-   ```bash
-   npx crushdataai snippet <connection_name> --lang python
-   ```
-
-3. Paste the snippet into your analysis script to load the data.
+### 1b. Secure Data Access
+- **Check Connections**: Run `npx crushdataai connections` first.
+- **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
+  `npx crushdataai connect`
+- **Get Code**: Use `npx crushdataai snippet <name>` to access data.
+- **Security**: **DO NOT** ask for credentials or manual file moves.
 
 ### Step 2: Search Relevant Domains
 

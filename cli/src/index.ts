@@ -9,7 +9,7 @@ const program = new Command();
 program
     .name('crushdataai')
     .description('CLI to install CrushData AI data analyst skill for AI coding assistants')
-    .version('1.2.0');
+    .version('1.2.1');
 
 program
     .command('init')

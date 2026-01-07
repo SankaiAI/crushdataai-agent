@@ -134,6 +134,6 @@ export function update(): void {
 
 export function versions(): void {
     console.log('\n📦 CrushData AI Versions');
-    console.log('   Installed: 1.2.0');
+    console.log('   Installed: 1.2.1');
     console.log('   Latest:    Check npm: npm show crushdataai version\n');
 }
