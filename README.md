@@ -18,11 +18,43 @@ CrushData AI provides:
 
 ```bash
 npm install -g crushdataai
-
-cd your-project
-crushdataai init --ai all  # All AI IDEs
-# or specific: crushdataai init --ai claude
 ```
+
+### What `npm install -g crushdataai` Does
+
+The `-g` flag means **Global Install**:
+
+| | Local Install (`npm install`) | Global Install (`npm install -g`) |
+|--|-------------------------------|-----------------------------------|
+| **Location** | `./node_modules/` in current folder | System-wide (e.g., `%APPDATA%\npm\`) |
+| **Scope** | Only available in that project | Available everywhere on your computer |
+| **Use Case** | Libraries for your project | CLI tools you want to run anywhere |
+
+Then in any project:
+```bash
+cd your-project
+crushdataai init --ai all    # All AI IDEs
+crushdataai init --ai claude # Claude Code only
+```
+
+### What `crushdataai init` Does
+
+When you run `crushdataai init --ai all`, the CLI:
+
+1. **Creates `.shared/data-analyst/`** - Contains the BM25 search engine and 13 CSV knowledge databases (~400 rows of data analyst patterns)
+
+2. **Creates AI IDE config files** based on `--ai` flag:
+   | Flag | Creates |
+   |------|---------|
+   | `--ai claude` | `.claude/skills/data-analyst/SKILL.md` |
+   | `--ai cursor` | `.cursor/commands/data-analyst.md` |
+   | `--ai windsurf` | `.windsurf/workflows/data-analyst.md` |
+   | `--ai antigravity` | `.agent/workflows/data-analyst.md` |
+   | `--ai copilot` | `.github/prompts/data-analyst.prompt.md` |
+   | `--ai kiro` | `.kiro/steering/data-analyst.md` |
+   | `--ai all` | All of the above |
+
+3. **Your AI IDE automatically detects** the config files and enables the `/data-analyst` command
 
 ### Manual Install
 
