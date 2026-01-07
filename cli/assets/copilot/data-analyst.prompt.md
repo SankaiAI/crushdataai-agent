@@ -18,6 +18,7 @@ Before coding, ask:
 - What business question should this answer?
 - Which tables contain the data?
 - How does YOUR company define key metrics?
+- **Script Folder**: Save scripts in `analysis/`. Create folder if needed.
 
 ### 2. Secure Data Access
 - **Check Connections**: Run `npx crushdataai connections` first.
@@ -39,6 +40,12 @@ Industry: `--industry saas|ecommerce|finance|marketing`
 print(f"Shape: {df.shape}, Dates: {df['date'].min()} to {df['date'].max()}")
 ```
 Report and confirm before proceeding.
+
+### 3b. Data Cleaning & Transformation (ETL)
+- Clean: Missing, duplicates, types
+- Transform: Feature engineering
+- Save: Scripts in `etl/`
+- Verify: Re-check shape
 
 ### 4. Validate
 - Verify JOINs

@@ -14,6 +14,7 @@ Before writing code, gather:
 - Data tables/sources
 - Company-specific metric definitions
 - Time range and filters
+- **Script Folder**: Save scripts in `analysis/`. Create folder if needed.
 
 ### 2. Secure Data Access
 - **Check Connections**: Run `npx crushdataai connections` first.
@@ -36,6 +37,12 @@ Run and report:
 - Sample data
 
 Ask: "Does this match your expectation?"
+
+### 3b. Data Cleaning & Transformation (ETL)
+- Handle missing/duplicates
+- Fix types & formats
+- Create calculated fields
+- **Save**: Scripts go to `etl/` folder
 
 ### 4. Validate Before Delivery
 - Sanity check totals

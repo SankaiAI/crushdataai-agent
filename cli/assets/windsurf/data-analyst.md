@@ -12,6 +12,7 @@ Ask before coding:
 - Business question this analysis should answer
 - Which tables/databases contain the data
 - Company-specific metric definitions
+- **Script Folder**: Save scripts in `analysis/`. Create folder if needed.
 
 ### 2. Secure Data Access
 - **Check Connections**: Run `npx crushdataai connections` first.
@@ -34,6 +35,12 @@ Run profiling before any analysis:
 ```python
 print(f"Shape: {df.shape}, Dates: {df['date'].min()} to {df['date'].max()}")
 ```
+
+### 3b. Data Cleaning & Transformation (ETL)
+- Handle missing values/duplicates
+- Fix data types
+- Create calculated fields
+- **Save**: Scripts go to `etl/` folder
 
 ### 4. Validate
 - Verify JOINs don't multiply rows

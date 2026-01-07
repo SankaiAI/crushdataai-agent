@@ -12,13 +12,16 @@ Ask before coding:
 - Business question this analysis should answer
 - Which tables/databases contain the data
 - Company-specific metric definitions
+- **Script Folder**: Save scripts in `analysis/`. Create folder if needed.
 
-### 1b. Secure Access
-- Check connections: `npx crushdataai connections`
-- Get connection code: `npx crushdataai snippet <name>`
-- **DO NOT** ask for API credentials.
+### 2. Secure Data Access
+- **Check Connections**: Run `npx crushdataai connections` first.
+- **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
+  `npx crushdataai connect`
+- **Get Code**: Use `npx crushdataai snippet <name>` to access data.
+- **Security**: **DO NOT** ask for credentials or manual file moves.
 
-### 2. Search Knowledge
+### 3. Search Knowledge
 ```bash
 python3 .windsurf/workflows/../.shared/data-analyst/scripts/search.py "<query>" --domain <domain>
 ```
@@ -32,6 +35,12 @@ Run profiling before any analysis:
 ```python
 print(f"Shape: {df.shape}, Dates: {df['date'].min()} to {df['date'].max()}")
 ```
+
+### 3b. Data Cleaning & Transformation (ETL)
+- Handle missing values/duplicates
+- Fix data types
+- Create calculated fields
+- **Save**: Scripts go to `etl/` folder
 
 ### 4. Validate
 - Verify JOINs don't multiply rows

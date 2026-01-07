@@ -15,11 +15,14 @@ Before coding, ask:
 - What business question should this answer?
 - Which tables contain the data?
 - How does YOUR company define the key metrics?
+- **Script Folder**: Save scripts in `analysis/`. Create folder if needed.
 
-3. **Secure Access**:
-   - Check connections: `npx crushdataai connections`
-   - Get connection code: `npx crushdataai snippet <name>`
-   - **DO NOT** ask for API credentials.
+### 2. Secure Data Access
+- **Check Connections**: Run `npx crushdataai connections` first.
+- **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
+  `npx crushdataai connect`
+- **Get Code**: Use `npx crushdataai snippet <name>` to access data.
+- **Security**: **DO NOT** ask for credentials or manual file moves.
 
 ### 2. Search Knowledge Base
 ```bash
@@ -35,6 +38,12 @@ Industry: `--industry saas|ecommerce|finance|marketing`
 print(f"Shape: {df.shape}, Date range: {df['date'].min()} to {df['date'].max()}")
 ```
 Report findings and ask user for confirmation.
+
+### 3b. Data Cleaning & Transformation (ETL)
+- **Clean**: Missing values, types, duplicates.
+- **Transform**: Standardize formats, create calculated fields.
+- **Save**: Scripts go to `etl/` folder.
+- **Verify**: Check data again after cleaning.
 
 ### 4. Validate Before Delivery
 - Check JOINs don't multiply rows unexpectedly

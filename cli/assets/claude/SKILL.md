@@ -29,6 +29,10 @@ When user requests data analysis work (analyze, query, dashboard, metrics, EDA, 
    - How does YOUR company define the key metrics?
    - Any filters to apply? (exclude test users, internal accounts?)
    - What timezone should I use for dates?
+
+4. **Script Organization**
+   - Save all analysis scripts in an `analysis/` folder.
+   - Create this folder if it does not exist.
    - What timezone should I use for dates?
 ```
 
@@ -96,6 +100,15 @@ FROM table;
 
 **Report findings to user before proceeding:**
 > "I found X rows, Y unique users, date range from A to B. Does this match your expectation?"
+
+### Step 3b: Data Cleaning & Transformation (ETL)
+
+**Address data quality issues found in Step 3:**
+1. **Cleaning**: Handle missing values, remove invalid duplicates, fix types.
+2. **Transformation**: Standardize categories, parse dates, normalize text.
+3. **Feature Engineering**: Create calculated columns needed for metrics.
+
+*Tip: Save cleaning scripts to `etl/` folder. Save processed data to `data/processed/`.*
 
 ### Step 4: Execute Analysis with Validation
 

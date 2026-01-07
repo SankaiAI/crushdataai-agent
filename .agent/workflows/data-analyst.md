@@ -25,10 +25,14 @@ Before writing any code, ask the user:
 2. **Data Context**: Which tables contain the data? What time range?
 3. **Metric Definitions**: How does YOUR company define the key metrics? Any filters?
 
-## Step 1b: Secure Access
-- Check connections: `npx crushdataai connections`
-- Get connection code: `npx crushdataai snippet <name>`
-- **DO NOT** ask for API credentials.
+4. **Script Organization**: All analysis scripts must be saved in an `analysis/` folder. Create this folder if it doesn't exist.
+
+### 2. Secure Data Access
+- **Check Connections**: Run `npx crushdataai connections` first.
+- **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
+  `npx crushdataai connect`
+- **Get Code**: Use `npx crushdataai snippet <name>` to access data.
+- **Security**: **DO NOT** ask for credentials or manual file moves.
 
 ---
 
@@ -65,9 +69,21 @@ print(f"Date range: {df['date'].min()} to {df['date'].max()}")
 print(f"Missing values:\n{df.isnull().sum()}")
 ```
 
-Ask: "I found X rows, Y users, dates from A to B. Does this match expectation?"
+72: Ask: "I found X rows, Y users, dates from A to B. Does this match expectation?"
+73: 
+74: ---
+75: 
+76: ## Step 3b: Data Cleaning & Transformation (ETL)
+77: 
+78: Based on profiling findings, perform necessary cleaning BEFORE analysis:
+79: - **Handle Missing Values**: Impute or drop based on logic.
+80: - **Remove Duplicates**: Check primary keys.
+81: - **Fix Data Types**: Ensure dates are datetime objects, numbers are numeric.
+82: - **Feature Engineering**: Create calculated fields needed for analysis.
+- **Script Location**: Save all cleaning/ETL scripts in `etl/` folder.
+83: 
+84: ---
 
----
 
 ## Step 4: Execute with Validation
 

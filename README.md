@@ -198,14 +198,16 @@ python3 .shared/data-analyst/scripts/search.py "MRR" --industry saas
 
 1. **Discovery** - AI asks about business context before coding
 2. **Data Profiling** - Mandatory checks before analysis
-3. **Validation** - Verify JOINs, aggregations, and totals
-4. **Sanity Checks** - Compare to benchmarks before delivery
+3. **Data Cleaning (ETL)** - Handle missing values/duplicates in `etl/` folder
+4. **Validation** - Verify JOINs, aggregations, and totals
+5. **Sanity Checks** - Compare to benchmarks before delivery
 
 This prevents the common AI mistakes:
 - ❌ Wrong metric definitions
 - ❌ Duplicate row inflation
 - ❌ Incorrect JOIN types
 - ❌ Unreasonable totals
+- ❌ Cluttered workspaces (scripts are organized in `analysis/` and `etl/`)
 
 ## 📝 License
 
