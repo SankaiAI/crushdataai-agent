@@ -27,6 +27,7 @@ Before writing any code, ask the user:
 
 4. **Script Organization**: All analysis scripts must be saved in an `analysis/` folder.
 5. **Python Environment**: Check for `venv` or `.venv`. If missing, run `python3 -m venv venv`. Install/Run inside venv.
+6. **Reports**: Save all validation/profiling outputs to `reports/` folder. Create if missing.
 
 ### 2. Secure Data Access
 - **Check Connections**: Run `npx crushdataai connections` first.

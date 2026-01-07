@@ -206,7 +206,7 @@ python3 .shared/data-analyst/scripts/search.py "MRR" --industry saas
 To prevent global conflicts, the AI is instructed to:
 1. **Check**: Look for existing `venv` or `.venv`.
 2. **Create**: If missing, run `python3 -m venv venv`.
-3. **Use**: Always install/run using `venv/bin/python` or similar.
+4. **Reports**: Save all validation/profiling outputs to `reports/` folder. Create if missing.
 
 This prevents the common AI mistakes:
 - ❌ Wrong metric definitions

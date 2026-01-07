@@ -38,6 +38,10 @@ When user requests data analysis work (analyze, query, dashboard, metrics, EDA, 
    - Check for `venv` or `.venv`. If missing, `python3 -m venv venv`.
    - Install dependencies in venv (`venv/bin/pip install`).
    - Run scripts using venv python (`venv/bin/python`).
+
+6. **Reports**
+   - Save all profiling, validation, and findings to `reports/` folder.
+   - Create this folder if it does not exist.
 ```
 
 ### 1b. Secure Data Access
