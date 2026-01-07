@@ -56,7 +56,12 @@ When you run `crushdataai init --ai all`, the CLI:
 
 3. **Your AI IDE automatically detects** the config files and enables the `/data-analyst` command
 
-3. **Your AI IDE automatically detects** the config files and enables the `/data-analyst` command
+### Updating
+To update the CLI and refresh your project's AI skill files:
+```bash
+npm install -g crushdataai@latest
+crushdataai init --force
+```
 
 ## 🔌 Data Connections (New in v2.0)
 

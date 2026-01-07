@@ -127,13 +127,13 @@ export function init(aiType: string, force: boolean): void {
 }
 
 export function update(): void {
-    console.log('\n🔄 Checking for updates...');
-    console.log('   Run: npm update -g crushdataai');
-    console.log('   Then: crushdataai init --force\n');
+    console.log('\n🔄 To update CrushData AI:');
+    console.log('   1. Run: npm install -g crushdataai@latest');
+    console.log('   2. Run: crushdataai init --force (to update project files)\n');
 }
 
 export function versions(): void {
     console.log('\n📦 CrushData AI Versions');
-    console.log('   Installed: 1.0.0');
+    console.log('   Installed: 1.2.0');
     console.log('   Latest:    Check npm: npm show crushdataai version\n');
 }
