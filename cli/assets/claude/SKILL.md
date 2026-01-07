@@ -40,8 +40,8 @@ When user requests data analysis work (analyze, query, dashboard, metrics, EDA, 
 - **Check Connections**: Run `npx crushdataai connections` first.
 - **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
   `npx crushdataai connect`
-- **Get Code**: Use `npx crushdataai snippet <name>` to access data.
-- **Security**: **DO NOT** ask for credentials or manual file moves.
+- **Get Code**: **ALWAYS** use `npx crushdataai snippet <name>` to get loading code.
+- **Security**: **DO NOT** ask user to copy/move files to `data/`. Treat connected data as read-only.
 
 ### Step 2: Search Relevant Domains
 

@@ -107,7 +107,7 @@ The skill activates automatically (Claude) or via slash command (others).
    ```bash
    npx crushdataai snippet my-shop-data --lang python
    ```
-4. **Result**: The AI receives the secure code to connect to your data and proceeds with analysis.
+4. **Result**: The AI receives the secure code to connect to your data (read-only) and proceeds with analysis.
 
 ### Claude Code
 
