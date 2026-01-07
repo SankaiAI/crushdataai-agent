@@ -60,6 +60,10 @@ When you run `crushdataai init --ai all`, the CLI:
 To update the CLI and refresh your project's AI skill files:
 ```bash
 npm install -g crushdataai@latest
+# Update specific IDE (recommended):
+crushdataai init --ai cursor --force
+
+# Or update everything:
 crushdataai init --force
 ```
 
