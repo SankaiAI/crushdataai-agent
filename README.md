@@ -63,7 +63,7 @@ npm install -g crushdataai@latest
 crushdataai init --force
 ```
 
-## 🔌 Data Connections (New in v2.0)
+## 🔌 Data Connections (New in v1.2)
 
 CrushData AI now features a **Connection Manager** to securely handle your data credentials.
 
