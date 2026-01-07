@@ -15,6 +15,11 @@ Before writing code, gather:
 - Company-specific metric definitions
 - Time range and filters
 
+### 1b. Secure Access
+- Check connections: `npx crushdataai connections`
+- Get connection code: `npx crushdataai snippet <name>`
+- **DO NOT** ask for API credentials.
+
 ### 2. Search Before Implementing
 ```bash
 python3 .kiro/steering/../.shared/data-analyst/scripts/search.py "<query>" --domain <domain>

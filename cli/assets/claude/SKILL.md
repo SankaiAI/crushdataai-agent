@@ -29,7 +29,23 @@ When user requests data analysis work (analyze, query, dashboard, metrics, EDA, 
    - How does YOUR company define the key metrics?
    - Any filters to apply? (exclude test users, internal accounts?)
    - What timezone should I use for dates?
-```
+   - What timezone should I use for dates?
+
+### Step 1b: Access Data (SECURE)
+
+**To access data, DO NOT ask for API keys/credentials.**
+
+1. Check available connections:
+   ```bash
+   npx crushdataai connections
+   ```
+
+2. Get the connection code snippet:
+   ```bash
+   npx crushdataai snippet <connection_name> --lang python
+   ```
+
+3. Paste the snippet into your analysis script to load the data.
 
 ### Step 2: Search Relevant Domains
 

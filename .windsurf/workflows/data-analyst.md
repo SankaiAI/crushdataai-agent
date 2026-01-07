@@ -13,6 +13,11 @@ Ask before coding:
 - Which tables/databases contain the data
 - Company-specific metric definitions
 
+### 1b. Secure Access
+- Check connections: `npx crushdataai connections`
+- Get connection code: `npx crushdataai snippet <name>`
+- **DO NOT** ask for API credentials.
+
 ### 2. Search Knowledge
 ```bash
 python3 .windsurf/workflows/../.shared/data-analyst/scripts/search.py "<query>" --domain <domain>

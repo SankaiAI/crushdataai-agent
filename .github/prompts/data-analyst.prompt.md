@@ -19,6 +19,11 @@ Before coding, ask:
 - Which tables contain the data?
 - How does YOUR company define key metrics?
 
+### 1b. Secure Access
+- Check connections: `npx crushdataai connections`
+- Get connection code: `npx crushdataai snippet <name>`
+- **DO NOT** ask for API credentials.
+
 ### 2. Search Knowledge Base
 ```bash
 python3 .github/prompts/../.shared/data-analyst/scripts/search.py "<query>" --domain <domain>

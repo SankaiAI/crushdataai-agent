@@ -56,18 +56,52 @@ When you run `crushdataai init --ai all`, the CLI:
 
 3. **Your AI IDE automatically detects** the config files and enables the `/data-analyst` command
 
-### Manual Install
+3. **Your AI IDE automatically detects** the config files and enables the `/data-analyst` command
 
-Copy the relevant folders to your project:
-- `.claude/skills/data-analyst/` - Claude Code
-- `.cursor/commands/` - Cursor
-- `.agent/workflows/` - Antigravity
-- `.windsurf/workflows/` - Windsurf
-- `.github/prompts/` - GitHub Copilot
-- `.kiro/steering/` - Kiro
-- `.shared/data-analyst/` - Shared scripts and data (required)
+## 🔌 Data Connections (New in v2.0)
+
+CrushData AI now features a **Connection Manager** to securely handle your data credentials.
+
+### 1. Add Data Sources
+Run the connect command to open the management UI:
+
+```bash
+crushdataai connect
+```
+
+- **Supported Types**: CSV, MySQL, PostgreSQL, Shopify, BigQuery, Snowflake
+- **Secure**: Credentials are stored locally in `~/.crushdataai/connections.json` and encrypted (future).
+
+> [!NOTE]
+> **Persistence**: Once you add a connection, you can **close the UI** (Ctrl+C). The AI IDE reads the saved connection details directly from your local config file, so the server does NOT need to keep running.
+
+### 2. View Saved Connections
+```bash
+crushdataai connections
+```
 
 ## 💻 Usage
+
+### Step 1: Initialize
+```bash
+crushdataai init --ai all
+```
+
+### Step 2: Use in AI IDE
+The skill activates automatically (Claude) or via slash command (others).
+
+**Example Workflow:**
+
+1. **User Request**: "Analyze the sales trends in `my-shop-data`"
+2. **AI Action**: The AI checks your saved connections.
+3. **AI Action**: The AI runs:
+   ```bash
+   npx crushdataai snippet my-shop-data --lang python
+   ```
+4. **Result**: The AI receives the secure code to connect to your data and proceeds with analysis.
+
+### Claude Code
+
 
 ### Claude Code
 

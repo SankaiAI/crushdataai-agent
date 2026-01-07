@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9333EA"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded rectangle background -->
+  <rect width="512" height="512" rx="108" fill="url(#bg-gradient)"/>
+  <!-- Bar chart icon -->
+  <g fill="white">
+    <!-- Left bar (shortest) -->
+    <rect x="120" y="280" width="56" height="112" rx="12"/>
+    <!-- Middle bar (tallest) -->
+    <rect x="228" y="120" width="56" height="272" rx="12"/>
+    <!-- Right bar (medium) -->
+    <rect x="336" y="200" width="56" height="192" rx="12"/>
+  </g>
+</svg>

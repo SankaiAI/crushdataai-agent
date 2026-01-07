@@ -1,6 +1,6 @@
 {
     "name": "crushdataai",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "description": "CLI to install CrushData AI data analyst skill for AI coding assistants",
     "main": "dist/index.js",
     "bin": {
@@ -23,23 +23,29 @@
     "author": "",
     "license": "Apache-2.0",
     "devDependencies": {
+        "@types/express": "^4.17.21",
         "@types/fs-extra": "^11.0.4",
         "@types/node": "^20.10.0",
+        "@types/papaparse": "^5.5.2",
         "typescript": "^5.3.0"
     },
     "dependencies": {
         "commander": "^11.1.0",
-        "fs-extra": "^11.2.0"
+        "express": "^4.18.2",
+        "fs-extra": "^11.2.0",
+        "open": "^10.0.0",
+        "papaparse": "^5.5.3"
     },
     "engines": {
         "node": ">=18.0.0"
     },
     "files": [
         "dist",
-        "assets"
+        "assets",
+        "ui"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/yourusername/crushdataai"
+        "url": "git+https://github.com/SankaiAI/crushdataai-agent.git"
     }
 }
