@@ -34,7 +34,7 @@ app.use('/api/connections', ConnectionsRouter);
 
 // API: Health check
 app.get('/api/health', (_req: Request, res: Response) => {
-    res.json({ status: 'ok', version: '2.0.0' });
+    res.json({ status: 'ok', version: '1.2.6' });
 });
 
 // Serve index.html for root
