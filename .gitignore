@@ -47,3 +47,10 @@ skill-sample/
 
 # Internal docs (PRD, BACKLOG, etc)
 docs/
+
+# Local Analysis (Private)
+etl/
+analysis/
+reports/
+data/
+venv/

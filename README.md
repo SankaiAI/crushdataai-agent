@@ -4,6 +4,8 @@
 
 An AI skill that provides structured, professional data analysis workflows with built-in validation - helping AI coding assistants perform data analysis like a careful human analyst.
 
+![CrushData AI Landing Page](assets/crushdataai-landing-page.png)
+
 ## 🎯 What It Does
 
 CrushData AI provides:
@@ -80,6 +82,8 @@ crushdataai connect
 
 - **Supported Types**: CSV, MySQL, PostgreSQL, Shopify, BigQuery, Snowflake
 - **Private & Secure**: Credentials are stored **locally** on your machine (`~/.crushdataai/connections.json`). They are **never** uploaded to any server or included in the npm package.
+
+![CrushData AI Connection Manager](assets/crushdataai-data-connection-ui.png)
 
 > [!NOTE]
 > **Persistence**: Once you add a connection, you can **close the UI** (Ctrl+C). The AI IDE reads the saved connection details directly from your local config file, so the server does NOT need to keep running.
