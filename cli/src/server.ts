@@ -6,6 +6,8 @@ import { MySQLConnector } from './connectors/mysql';
 import { PostgreSQLConnector } from './connectors/postgresql';
 import { ShopifyConnector } from './connectors/shopify';
 import { BigQueryConnector, SnowflakeConnector } from './connectors/cloud';
+import { CustomConnector } from './connectors/custom';
+import { SQLServerConnector, RedshiftConnector, DatabricksConnector, ClickHouseConnector, MongoDBConnector } from './connectors/additional';
 import ConnectionsRouter from './routes/connections';
 
 const app = express();
@@ -24,6 +26,12 @@ ConnectorRegistry.register(new PostgreSQLConnector());
 ConnectorRegistry.register(new ShopifyConnector());
 ConnectorRegistry.register(new BigQueryConnector());
 ConnectorRegistry.register(new SnowflakeConnector());
+ConnectorRegistry.register(new CustomConnector());
+ConnectorRegistry.register(new SQLServerConnector());
+ConnectorRegistry.register(new RedshiftConnector());
+ConnectorRegistry.register(new DatabricksConnector());
+ConnectorRegistry.register(new ClickHouseConnector());
+ConnectorRegistry.register(new MongoDBConnector());
 
 // Serve static files from ui directory
 const uiPath = path.join(__dirname, '..', 'ui');

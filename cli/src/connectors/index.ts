@@ -6,6 +6,12 @@ export interface Table {
     rowCount?: number | null;
 }
 
+export interface ColumnInfo {
+    name: string;
+    type: string;
+    nullable: boolean;
+}
+
 export interface TableData {
     columns: string[];
     rows: any[];
@@ -24,6 +30,7 @@ export interface Connector {
     test(connection: Connection): Promise<boolean>;
     getTables(connection: Connection): Promise<Table[]>;
     getData(connection: Connection, tableName: string, page: number, limit: number): Promise<TableData>;
+    getSchema(connection: Connection, tableName: string): Promise<ColumnInfo[]>;
     getSnippet(connection: Connection, lang: string): string;
 }
 

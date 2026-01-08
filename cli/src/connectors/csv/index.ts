@@ -81,21 +81,45 @@ export class CSVConnector implements Connector {
         };
     }
 
-    getSnippet(connection: Connection, lang: string): string {
-        let filePath = connection.filePath || '';
-        if (filePath.startsWith('"') && filePath.endsWith('"')) {
+    async getSchema(connection: Connection, tableName: string): Promise<import('../index').ColumnInfo[]> {
+        let filePath = connection.filePath;
+        if (filePath && filePath.startsWith('"') && filePath.endsWith('"')) {
             filePath = filePath.slice(1, -1);
         }
 
-        // Escape backslashes for string literals
-        const escapedPath = filePath.replace(/\\/g, '\\\\');
+        if (!filePath || !fs.existsSync(filePath)) {
+            throw new Error('CSV file not found');
+        }
+
+        // Read first row to get headers and infer types from first data row
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        const result = Papa.parse(fileContent, {
+            header: true,
+            skipEmptyLines: true,
+            preview: 2 // Only parse header + 1 data row for type inference
+        });
+
+        const columns = result.meta.fields || [];
+        const firstRow = (result.data as Record<string, unknown>[])[0] || {};
+
+        return columns.map(col => ({
+            name: col,
+            type: typeof firstRow[col] === 'number' ? 'number' : 'string',
+            nullable: true
+        }));
+    }
+
+    getSnippet(connection: Connection, lang: string): string {
+        const prefix = connection.name.toUpperCase().replace(/[^A-Z0-9]/g, '_');
 
         if (lang === 'python') {
-            return `import pandas as pd
+            return `import os
+import pandas as pd
 
 # Connection: ${connection.name}
 # Type: csv
-file_path = "${escapedPath}"
+# File path loaded from environment variable (set in .env file)
+file_path = os.environ["${prefix}_FILE_PATH"]
 
 try:
     df = pd.read_csv(file_path)
@@ -109,3 +133,4 @@ except Exception as e:
         return `# Language ${lang} not supported for CSV connector yet.`;
     }
 }
+

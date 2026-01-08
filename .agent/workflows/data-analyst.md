@@ -30,11 +30,15 @@ Before writing any code, ask the user:
 6. **Reports**: Save all validation/profiling outputs to `reports/` folder. Create if missing.
 
 ### 2. Secure Data Access
+
+> **Credentials are stored in `.env`** - never hardcoded.
+
 - **Check Connections**: Run `npx crushdataai connections` first.
-- **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
-  `npx crushdataai connect`
-- **Get Code**: **ALWAYS** use `npx crushdataai snippet <name>` to get loading code.
-- **Security**: **DO NOT** ask user to copy/move files to `data/`. Treat connected data as read-only.
+- **Missing Data?**: Run `npx crushdataai connect` to add.
+- **Discover Schema**: `npx crushdataai schema <connection> [table]`
+- **Get Code**: **ALWAYS** use `npx crushdataai snippet <name>` (uses env vars).
+- **Load .env**: Ensure `python-dotenv` loads `.env`. Scripts use `os.environ["VAR"]`.
+- **Security**: Treat connected data as read-only.
 
 ---
 

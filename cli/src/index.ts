@@ -95,4 +95,12 @@ program
         await snippet(name, options.lang);
     });
 
+program
+    .command('schema <connection> [table]')
+    .description('Show table schema (columns) for a connection')
+    .action(async (connection, table) => {
+        const { schema } = await import('./commands/schema');
+        await schema(connection, table);
+    });
+
 program.parse();

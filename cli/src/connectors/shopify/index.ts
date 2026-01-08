@@ -145,18 +145,59 @@ export class ShopifyConnector implements Connector {
         }
     }
 
+    async getSchema(connection: Connection, tableName: string): Promise<import('../index').ColumnInfo[]> {
+        // Shopify schemas are predefined - return common fields for each table type
+        const schemas: Record<string, import('../index').ColumnInfo[]> = {
+            orders: [
+                { name: 'id', type: 'integer', nullable: false },
+                { name: 'email', type: 'string', nullable: true },
+                { name: 'created_at', type: 'datetime', nullable: false },
+                { name: 'total_price', type: 'decimal', nullable: false },
+                { name: 'currency', type: 'string', nullable: false },
+                { name: 'financial_status', type: 'string', nullable: true },
+                { name: 'fulfillment_status', type: 'string', nullable: true },
+                { name: 'customer', type: 'json', nullable: true },
+                { name: 'line_items', type: 'json', nullable: false }
+            ],
+            products: [
+                { name: 'id', type: 'integer', nullable: false },
+                { name: 'title', type: 'string', nullable: false },
+                { name: 'body_html', type: 'string', nullable: true },
+                { name: 'vendor', type: 'string', nullable: true },
+                { name: 'product_type', type: 'string', nullable: true },
+                { name: 'created_at', type: 'datetime', nullable: false },
+                { name: 'handle', type: 'string', nullable: false },
+                { name: 'status', type: 'string', nullable: false },
+                { name: 'variants', type: 'json', nullable: false }
+            ],
+            customers: [
+                { name: 'id', type: 'integer', nullable: false },
+                { name: 'email', type: 'string', nullable: true },
+                { name: 'first_name', type: 'string', nullable: true },
+                { name: 'last_name', type: 'string', nullable: true },
+                { name: 'created_at', type: 'datetime', nullable: false },
+                { name: 'orders_count', type: 'integer', nullable: false },
+                { name: 'total_spent', type: 'decimal', nullable: false },
+                { name: 'addresses', type: 'json', nullable: true }
+            ]
+        };
+
+        return schemas[tableName] || [];
+    }
+
     getSnippet(connection: Connection, lang: string): string {
-        const storeUrl = connection.store?.replace(/\/$/, '') || 'your-shop.myshopify.com';
-        const apiKey = connection.apiKey || 'shpat_...';
+        const prefix = connection.name.toUpperCase().replace(/[^A-Z0-9]/g, '_');
 
         if (lang === 'python') {
-            return `import requests
+            return `import os
+import requests
 import pandas as pd
 
 # Connection: ${connection.name}
 # Type: shopify
-shop_url = "${storeUrl}"
-access_token = "${apiKey}"
+# Credentials loaded from environment variables (set in .env file)
+shop_url = os.environ["${prefix}_STORE"]
+access_token = os.environ["${prefix}_API_KEY"]
 api_version = "2024-04"
 
 def fetch_shopify_data(endpoint):
@@ -184,3 +225,4 @@ except Exception as e:
         return `# Language ${lang} not supported for Shopify connector yet.`;
     }
 }
+

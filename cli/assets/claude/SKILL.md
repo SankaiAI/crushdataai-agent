@@ -45,10 +45,15 @@ When user requests data analysis work (analyze, query, dashboard, metrics, EDA, 
 ```
 
 ### 1b. Secure Data Access
+
+> **Credentials are stored in the project's `.env` file** - never hardcoded.
+
 - **Check Connections**: Run `npx crushdataai connections` first.
-- **Missing Data?**: If the data source is not listed (e.g. on Desktop/Database), **INSTRUCT** the user to run:
+- **Missing Data?**: If the data source is not listed, **INSTRUCT** the user to run:
   `npx crushdataai connect`
-- **Get Code**: **ALWAYS** use `npx crushdataai snippet <name>` to get loading code.
+- **Discover Schema**: Use `npx crushdataai schema <connection> [table]` to see available tables and columns.
+- **Get Code**: **ALWAYS** use `npx crushdataai snippet <name>` to get loading code (uses env vars).
+- **Load .env**: Scripts use `os.environ["VAR"]`. Ensure `python-dotenv` is installed and `.env` is loaded.
 - **Security**: **DO NOT** ask user to copy/move files to `data/`. Treat connected data as read-only.
 
 ### Step 2: Search Relevant Domains

@@ -5,7 +5,8 @@ import {
     saveConnection,
     deleteConnection,
     listConnections,
-    getConnection
+    getConnection,
+    writeToEnvFile
 } from '../connections';
 import { ConnectorRegistry } from '../connectors';
 
@@ -51,7 +52,10 @@ router.post('/', (req: Request, res: Response) => {
             return;
         }
 
+        // Save to encrypted config AND export to .env
         saveConnection(connection);
+        writeToEnvFile(connection);
+
         res.json({ success: true, message: 'Connection saved' });
     } catch (error) {
         res.status(500).json({ success: false, error: 'Failed to save connection' });

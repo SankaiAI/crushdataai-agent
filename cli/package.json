@@ -1,13 +1,13 @@
 {
     "name": "crushdataai",
-    "version": "1.2.6",
+    "version": "1.2.8",
     "description": "CLI to install CrushData AI data analyst skill for AI coding assistants",
     "main": "dist/index.js",
     "bin": {
         "crushdataai": "./dist/index.js"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && cd ui-react && npm install && npm run build",
         "dev": "ts-node src/index.ts",
         "prepublishOnly": "npm run build"
     },
@@ -27,14 +27,19 @@
         "@types/fs-extra": "^11.0.4",
         "@types/node": "^20.10.0",
         "@types/papaparse": "^5.5.2",
+        "@types/pg": "^8.16.0",
         "typescript": "^5.3.0"
     },
     "dependencies": {
+        "@google-cloud/bigquery": "^8.1.1",
         "commander": "^11.1.0",
         "express": "^4.18.2",
         "fs-extra": "^11.2.0",
+        "mysql2": "^3.16.0",
         "open": "^10.0.0",
-        "papaparse": "^5.5.3"
+        "papaparse": "^5.5.3",
+        "pg": "^8.16.3",
+        "snowflake-sdk": "^2.3.3"
     },
     "engines": {
         "node": ">=18.0.0"

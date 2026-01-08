@@ -1,0 +1,42 @@
+.delete-modal {
+    max-width: 400px !important;
+}
+
+.delete-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: #ef4444;
+}
+
+.delete-modal .modal-body {
+    text-align: center;
+    padding: 2rem 1.5rem 1rem;
+}
+
+.delete-modal h3 {
+    color: #111827;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.delete-modal p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.delete-modal strong {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
