@@ -1,15 +1,31 @@
 :root {
-  --primary: #8B5CF6;
-  --primary-dark: #7C3AED;
+  /* Crushdataai brand palette - matching landing page */
+  --primary: #7C3AED;
+  --primary-dark: #6D28D9;
   --primary-light: #A78BFA;
-  --bg: #F8FAFC;
-  --sidebar-bg: #FFFFFF;
+  --primary-glow: rgba(124, 58, 237, 0.12);
+
+  /* Refined backgrounds */
+  --bg: #FAFAFB;
   --card: #FFFFFF;
-  --border: #E2E8F0;
-  --border-light: #F1F5F9;
-  --text: #1E293B;
-  --text-muted: #64748B;
-  --text-light: #94A3B8;
+  --border: #E5E7EB;
+  --border-light: #F3F4F6;
+
+  /* Brand-matched dark sidebar */
+  --sidebar-bg: linear-gradient(180deg, #1F1F3D 0%, #171728 100%);
+  --sidebar-surface: rgba(255, 255, 255, 0.05);
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --sidebar-active: rgba(124, 58, 237, 0.25);
+  --sidebar-text: #F8FAFC;
+  --sidebar-text-muted: #A1A1AA;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+
+  /* Text colors */
+  --text: #18181B;
+  --text-muted: #71717A;
+  --text-light: #A1A1AA;
+
+  /* Status colors */
   --success: #10B981;
   --error: #EF4444;
   --warning: #F59E0B;
@@ -33,18 +49,19 @@ body {
 .sidebar {
   width: 280px;
   background: var(--sidebar-bg);
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--sidebar-border);
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar-header {
   padding: 1.25rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--sidebar-border);
 }
 
 .logo {
@@ -61,6 +78,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
 }
 
 .logo-icon svg {
@@ -72,10 +90,11 @@ body {
 .logo-text {
   font-size: 1.1rem;
   font-weight: 700;
+  color: var(--sidebar-text);
 }
 
 .logo-text span {
-  background: linear-gradient(135deg, var(--primary), #EC4899);
+  background: linear-gradient(135deg, var(--primary-light), #F472B6);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -91,8 +110,8 @@ body {
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-light);
+  letter-spacing: 0.08em;
+  color: var(--sidebar-text-muted);
   margin-bottom: 0.75rem;
   padding: 0 0.5rem;
 }
@@ -108,24 +127,25 @@ body {
   padding: 0.625rem 0.75rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s ease;
   margin-bottom: 0.25rem;
+  color: var(--sidebar-text);
 }
 
 .connection-item:hover {
-  background: var(--border-light);
+  background: var(--sidebar-hover);
 }
 
 .connection-item.active {
-  background: rgba(139, 92, 246, 0.1);
-  color: var(--primary);
+  background: var(--sidebar-active);
+  color: var(--primary-light);
 }
 
 .connection-item .icon {
   font-size: 1.25rem;
   width: 32px;
   height: 32px;
-  background: var(--border-light);
+  background: var(--sidebar-hover);
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -133,7 +153,7 @@ body {
 }
 
 .connection-item.active .icon {
-  background: rgba(139, 92, 246, 0.15);
+  background: var(--primary-glow);
 }
 
 .connection-item .info {
@@ -151,7 +171,7 @@ body {
 
 .connection-item .type {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--sidebar-text-muted);
 }
 
 .connection-item .status {
@@ -168,19 +188,19 @@ body {
   width: 100%;
   padding: 0.625rem 0.75rem;
   background: transparent;
-  border: 1px dashed var(--border);
+  border: 1px dashed var(--sidebar-text-muted);
   border-radius: 8px;
-  color: var(--text-muted);
+  color: var(--sidebar-text-muted);
   font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s ease;
   margin-top: 0.5rem;
 }
 
 .add-connection-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: rgba(139, 92, 246, 0.05);
+  border-color: var(--primary-light);
+  color: var(--primary-light);
+  background: var(--primary-glow);
 }
 
 /* Main Content */
@@ -194,6 +214,15 @@ body {
   flex-direction: column;
   min-width: 0;
   /* Prevents flex item from overflowing */
+}
+
+/* Centered empty state wrapper */
+.main>.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-header {
@@ -325,14 +354,15 @@ body {
 }
 
 .empty-state svg {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 1rem;
-  opacity: 0.4;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  opacity: 0.3;
+  stroke: var(--primary);
 }
 
 .empty-state h3 {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 0.5rem;
@@ -341,6 +371,7 @@ body {
 .empty-state p {
   font-size: 0.875rem;
   margin-bottom: 1.5rem;
+  max-width: 320px;
 }
 
 /* Buttons */
@@ -354,15 +385,22 @@ body {
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
 }
 
 .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+}
+
+/* Empty state button - smaller */
+.empty-state .btn {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8125rem !important;
 }
 
 .btn-secondary {

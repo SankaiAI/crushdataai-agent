@@ -258,7 +258,6 @@ function closeModal() {
 }
 
 document.getElementById('add-connection-btn').addEventListener('click', openModal);
-document.getElementById('add-first-btn').addEventListener('click', openModal);
 document.getElementById('modal-close').addEventListener('click', closeModal);
 document.getElementById('modal-overlay').addEventListener('click', (e) => {
     if (e.target.id === 'modal-overlay') closeModal();
