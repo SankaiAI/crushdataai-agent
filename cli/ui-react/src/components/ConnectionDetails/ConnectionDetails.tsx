@@ -56,7 +56,7 @@ export function ConnectionDetails({
                                         onClick={() => onSelectTable(table.name)}
                                     >
                                         <span className="table-name">{table.name}</span>
-                                        {table.rowCount !== undefined && (
+                                        {table.rowCount !== undefined && table.rowCount !== null && (
                                             <span className="row-count">{table.rowCount.toLocaleString()} rows</span>
                                         )}
                                     </div>
