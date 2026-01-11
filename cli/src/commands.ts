@@ -4,29 +4,35 @@ import * as path from 'path';
 const AI_TYPES = ['claude', 'cursor', 'windsurf', 'antigravity', 'copilot', 'kiro'] as const;
 type AIType = typeof AI_TYPES[number];
 
-const AI_PATHS: Record<AIType, { dir: string; files: string[] }> = {
+const AI_PATHS: Record<AIType, { dir: string; sourceDir: string; files: string[] }> = {
     claude: {
         dir: '.claude/skills/data-analyst',
+        sourceDir: '.claude/skills/data-analyst',
         files: ['SKILL.md']
     },
     cursor: {
         dir: '.cursor/commands',
+        sourceDir: '.cursor/commands',
         files: ['data-analyst.md']
     },
     windsurf: {
         dir: '.windsurf/workflows',
+        sourceDir: '.windsurf/workflows',
         files: ['data-analyst.md']
     },
     antigravity: {
         dir: '.agent/workflows',
+        sourceDir: '.agent/workflows',
         files: ['data-analyst.md']
     },
     copilot: {
         dir: '.github/prompts',
+        sourceDir: '.github/prompts',
         files: ['data-analyst.prompt.md']
     },
     kiro: {
         dir: '.kiro/steering',
+        sourceDir: '.kiro/steering',
         files: ['data-analyst.md']
     }
 };
@@ -39,22 +45,31 @@ function getAssetsDir(): string {
 }
 
 function copySharedFiles(targetDir: string, force: boolean): void {
-    const sharedSource = path.join(getAssetsDir(), 'shared');
+    const sharedSource = path.join(getAssetsDir(), '.shared', 'data-analyst');
     const sharedTarget = path.join(targetDir, SHARED_DIR);
 
-    if (fs.existsSync(sharedTarget) && !force) {
-        console.log(`  ⏭️  ${SHARED_DIR} already exists (use --force to overwrite)`);
-        return;
+    if (fs.existsSync(sharedTarget)) {
+        if (!force) {
+            console.log(`  ⏭️  ${SHARED_DIR} already exists (use --force to overwrite)`);
+            return;
+        }
+        // Clean reinstall: remove existing folder first
+        fs.removeSync(sharedTarget);
     }
 
-    fs.copySync(sharedSource, sharedTarget, { overwrite: force });
+    fs.copySync(sharedSource, sharedTarget);
     console.log(`  ✅ Created ${SHARED_DIR}/`);
 }
 
 function copyAIFiles(aiType: AIType, targetDir: string, force: boolean): void {
     const config = AI_PATHS[aiType];
-    const sourceDir = path.join(getAssetsDir(), aiType);
+    const sourceDir = path.join(getAssetsDir(), config.sourceDir);
     const targetPath = path.join(targetDir, config.dir);
+
+    // Clean reinstall: remove entire folder first when force=true
+    if (fs.existsSync(targetPath) && force) {
+        fs.removeSync(targetPath);
+    }
 
     // Ensure directory exists
     fs.ensureDirSync(targetPath);
@@ -74,15 +89,18 @@ function copyAIFiles(aiType: AIType, targetDir: string, force: boolean): void {
         }
     }
 
-    // For Claude, also create symlinks to shared scripts and data
+    // For Claude, also copy shared scripts and data
     if (aiType === 'claude') {
         const scriptsLink = path.join(targetPath, 'scripts');
         const dataLink = path.join(targetPath, 'data');
-        const sharedScripts = path.relative(targetPath, path.join(targetDir, SHARED_DIR, 'scripts'));
-        const sharedData = path.relative(targetPath, path.join(targetDir, SHARED_DIR, 'data'));
 
-        // Note: Symlinks may require admin on Windows. Copy as fallback.
         try {
+            // Clean reinstall: remove existing folders first when force=true
+            if (force) {
+                if (fs.existsSync(scriptsLink)) fs.removeSync(scriptsLink);
+                if (fs.existsSync(dataLink)) fs.removeSync(dataLink);
+            }
+
             if (!fs.existsSync(scriptsLink)) {
                 fs.copySync(path.join(targetDir, SHARED_DIR, 'scripts'), scriptsLink);
                 console.log(`  ✅ Copied scripts to ${config.dir}/scripts/`);

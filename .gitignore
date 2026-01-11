@@ -44,6 +44,7 @@ coverage/
 
 # Skill sample (reference only, not part of this project)
 skill-sample/
+sample/
 
 # Internal docs (PRD, BACKLOG, etc)
 docs/
