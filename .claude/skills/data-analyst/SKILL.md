@@ -170,6 +170,54 @@ FROM table;
 
 ---
 
+## Step 5: Generate Dashboard Output
+
+**After analysis, save results for dashboard visualization:**
+
+1. **Search for best chart type:**
+   ```bash
+   python3 .claude/skills/data-analyst/scripts/search.py "<metric description>" --domain chart
+   ```
+
+2. **Create dashboard JSON:**
+   ```python
+   from pathlib import Path
+   import json
+   from datetime import datetime
+   
+   Path("reports/dashboards").mkdir(parents=True, exist_ok=True)
+   
+   dashboard = {
+       "metadata": {
+           "title": "Analysis Dashboard",
+           "generatedAt": datetime.now().isoformat(),
+           "dataRange": f"{start_date} to {end_date}"
+       },
+       "kpis": [
+           {"id": "kpi-1", "label": "Total Revenue", "value": "$50,000", "trend": "+12%", "trendDirection": "up"}
+       ],
+       "charts": [
+           {
+               "id": "chart-1",
+               "type": "line",  # line, bar, pie, area, scatter, donut, table
+               "title": "Monthly Trend",
+               "data": {
+                   "labels": ["Jan", "Feb", "Mar"],
+                   "datasets": [{"label": "Revenue", "values": [10000, 15000, 25000]}]
+               }
+           }
+       ]
+   }
+   
+   with open("reports/dashboards/dashboard.json", "w") as f:
+       json.dump(dashboard, f, indent=2)
+   ```
+
+3. **Tell user:**
+   > "Dashboard ready! Run `npx crushdataai dashboard` to view."
+
+---
+
 ## Pre-Delivery Checklist
 
 Before presenting final results:

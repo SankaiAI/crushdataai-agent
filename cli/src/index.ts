@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { init, update, versions } from './commands';
 import { startServer } from './server';
+import { startDashboardServer } from './dashboard-server';
 import { listConnections, deleteConnection } from './connections';
 
 const program = new Command();
@@ -9,7 +10,7 @@ const program = new Command();
 program
     .name('crushdataai')
     .description('CLI to install CrushData AI data analyst skill for AI coding assistants')
-    .version('1.2.1');
+    .version('1.2.14');
 
 program
     .command('init')
@@ -101,6 +102,22 @@ program
     .action(async (connection, table) => {
         const { schema } = await import('./commands/schema');
         await schema(connection, table);
+    });
+
+program
+    .command('dashboard')
+    .description('Open the dashboard visualization UI')
+    .option('-p, --port <port>', 'Server port', '3002')
+    .action(async (options) => {
+        const port = parseInt(options.port);
+        console.log('\n📊 Starting CrushData AI Dashboard...\n');
+
+        try {
+            await startDashboardServer(port);
+        } catch (error: any) {
+            console.error(`❌ Error: ${error.message}`);
+            process.exit(1);
+        }
     });
 
 program.parse();

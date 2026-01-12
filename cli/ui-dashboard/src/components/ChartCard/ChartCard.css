@@ -1,0 +1,125 @@
+.chart-card {
+    background: linear-gradient(135deg, rgba(30, 30, 45, 0.95), rgba(20, 20, 35, 0.98));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.chart-card:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+}
+
+.chart-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.chart-card-title-group {
+    flex: 1;
+}
+
+.chart-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #f3f4f6;
+    margin: 0 0 0.25rem 0;
+}
+
+.chart-card-description {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin: 0;
+}
+
+.chart-refresh-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 8px;
+    color: #818cf8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chart-refresh-btn:hover {
+    background: rgba(99, 102, 241, 0.25);
+    border-color: rgba(99, 102, 241, 0.5);
+    color: #a5b4fc;
+}
+
+.chart-refresh-btn:active {
+    transform: scale(0.95);
+}
+
+.chart-card-body {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-card-footer {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.last-refreshed {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+/* Table styles */
+.chart-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.chart-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.chart-table th,
+.chart-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-table th {
+    color: #9ca3af;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.chart-table td {
+    color: #e5e7eb;
+}
+
+.chart-table tr:hover td {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* Fallback warning */
+.chart-fallback .fallback-warning {
+    color: #fbbf24;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(251, 191, 36, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}

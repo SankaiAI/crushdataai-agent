@@ -60,3 +60,21 @@ Ask: "Does this match your expectation?"
 - Compare to benchmarks
 - Document assumptions
 - Present for user confirmation
+
+### 5. Generate Dashboard Output
+After analysis, save for visualization:
+```python
+from pathlib import Path
+import json
+from datetime import datetime
+
+Path("reports/dashboards").mkdir(parents=True, exist_ok=True)
+dashboard = {
+    "metadata": {"title": "Analysis", "generatedAt": datetime.now().isoformat()},
+    "kpis": [{"id": "kpi-1", "label": "Total", "value": "$50K", "trend": "+12%"}],
+    "charts": [{"id": "chart-1", "type": "line", "title": "Trend", "data": {"labels": ["Jan","Feb"], "datasets": [{"label": "Revenue", "values": [10000,20000]}]}}]
+}
+with open("reports/dashboards/dashboard.json", "w") as f:
+    json.dump(dashboard, f, indent=2)
+```
+Tell user: "Run `npx crushdataai dashboard` to view."
