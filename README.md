@@ -93,6 +93,43 @@ crushdataai connect
 crushdataai connections
 ```
 
+## 📈 Data Visualization (New in v1.3)
+
+CrushData AI generates interactive dashboards to visualize your analysis results.
+
+### 1. View Dashboard
+Run the dashboard command to open the local React-based viewer:
+
+```bash
+# Using installed package (generally faster)
+crushdataai dashboard
+
+# OR using npx (if not in PATH)
+npx crushdataai dashboard
+```
+
+![Advanced Dashboard](assets/crushdataai-dashboard.png)
+*Advanced charts visualization (Funnel, Gauge, Radar, etc.)*
+
+![Simple Dashboard](assets/crushdataai-dashboard-simple-charts.png)
+*Standard charts visualization (Line, Bar, Pie, etc.)*
+
+### 2. Features
+- **Tier 1 Charts**: Line, Bar, Pie, Area, Scatter, Radar (via Recharts)
+- **Tier 2 Charts**: Funnel, Gauge, Heatmap, Sankey, Treemap, Waterfall (via Plotly)
+- **Auto-Refresh**: The dashboard automatically updates when your AI agent writes new data to `reports/dashboards/`.
+- **Data Refresh**: Use the "Refresh" button 🔄 on any chart to re-run the saved SQL/Python query against your data source.
+
+### 3. AI Workflow Example
+
+When you ask an AI agent (like Claude or Cursor) to "create a dashboard", it follows this process:
+
+1. **Analyzes Data**: The AI runs SQL/Python to calculate metrics and aggregates.
+2. **Generates JSON**: It creates a file at `reports/dashboards/your-topic.json` using the CrushData schema.
+3. **Visualizes**: You run the dashboard command to see the rendered charts instantly.
+
+*The AI automatically selects the best chart type (e.g., Line for trends, Bar for comparisons) based on your data.*
+
 ## 💻 Usage
 
 ### Step 1: Initialize
