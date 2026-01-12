@@ -14,7 +14,9 @@ function App() {
         loading,
         error,
         fetchDashboard,
-        refreshChart
+        refreshChart,
+        refreshDashboard,
+        usesScriptRefresh
     } = useDashboard();
 
     if (loading && !currentDashboard) {
@@ -57,6 +59,12 @@ function App() {
             <main className="main-content">
                 {currentDashboard && (
                     <>
+                        {loading && (
+                            <div className="refresh-overlay">
+                                <FiRefreshCw className="loading-spinner" />
+                                <p>Refreshing data...</p>
+                            </div>
+                        )}
                         <header className="dashboard-header">
                             <div className="header-info">
                                 <h1 className="dashboard-title">{currentDashboard.metadata.title}</h1>
@@ -67,6 +75,11 @@ function App() {
                                             {currentDashboard.metadata.dataRange}
                                         </span>
                                     )}
+                                    {currentDashboard.metadata.generatedAt && (
+                                        <span className="meta-item">
+                                            Last updated: {new Date(currentDashboard.metadata.generatedAt).toLocaleString()}
+                                        </span>
+                                    )}
                                     {currentDashboard.metadata.recordCount && (
                                         <span className="meta-item">
                                             {currentDashboard.metadata.recordCount.toLocaleString()} records
@@ -74,6 +87,17 @@ function App() {
                                     )}
                                 </div>
                             </div>
+                            {usesScriptRefresh && (
+                                <button
+                                    className="dashboard-refresh-btn"
+                                    onClick={refreshDashboard}
+                                    disabled={loading}
+                                    title="Refresh all data"
+                                >
+                                    <FiRefreshCw className={loading ? 'spinning' : ''} />
+                                    <span>Refresh Data</span>
+                                </button>
+                            )}
                         </header>
 
                         {/* KPI Section */}
@@ -95,7 +119,7 @@ function App() {
                                         <ChartCard
                                             key={chart.id}
                                             chart={chart}
-                                            onRefresh={refreshChart}
+                                            onRefresh={usesScriptRefresh ? undefined : refreshChart}
                                         />
                                     ))}
                                 </div>

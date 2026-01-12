@@ -1,22 +1,22 @@
 .kpi-card {
-    background: linear-gradient(135deg, rgba(30, 30, 45, 0.95), rgba(20, 20, 35, 0.98));
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 1.5rem;
     min-width: 180px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--card-shadow);
 }
 
 .kpi-card:hover {
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+    border-color: var(--accent);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     transform: translateY(-2px);
 }
 
 .kpi-label {
     font-size: 0.85rem;
-    color: #9ca3af;
+    color: var(--text-secondary);
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -25,11 +25,7 @@
 .kpi-value {
     font-size: 2rem;
     font-weight: 700;
-    color: #f3f4f6;
-    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 

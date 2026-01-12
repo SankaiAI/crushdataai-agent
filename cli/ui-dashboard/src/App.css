@@ -4,13 +4,14 @@
 }
 
 :root {
-    --bg-primary: #0f0f17;
-    --bg-secondary: #1a1a2e;
-    --border-color: rgba(99, 102, 241, 0.2);
-    --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --border-color: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
     --accent: #6366f1;
     --accent-light: #818cf8;
+    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 body {
@@ -30,10 +31,7 @@ body {
 .app {
     display: flex;
     min-height: 100vh;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
-        var(--bg-primary);
+    background: var(--bg-primary);
 }
 
 .app-centered {
@@ -52,6 +50,10 @@ body {
 /* Dashboard Header */
 .dashboard-header {
     margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
 .header-info {
@@ -64,10 +66,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
-    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
 }
 
 .dashboard-meta {
@@ -87,6 +86,42 @@ body {
 .meta-item svg {
     width: 14px;
     height: 14px;
+}
+
+/* Dashboard Refresh Button */
+.dashboard-refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: #0f172a;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-refresh-btn:hover:not(:disabled) {
+    transform: scale(1.02);
+    opacity: 0.95;
+}
+
+.dashboard-refresh-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.dashboard-refresh-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.dashboard-refresh-btn svg.spinning {
+    animation: spin 1s linear infinite;
 }
 
 /* KPI Section */
@@ -115,6 +150,31 @@ body {
     .charts-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Refresh Overlay */
+.refresh-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    font-weight: 500;
+    border-radius: 8px;
+    /* Matches content if needed, though usually full screen */
+}
+
+/* Ensure relative positioning for overlay parent */
+.main-content {
+    position: relative;
 }
 
 /* Loading State */

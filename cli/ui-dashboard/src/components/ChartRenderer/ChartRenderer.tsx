@@ -25,10 +25,10 @@ const COLORS = [
 const PLOTLY_LAYOUT = {
     paper_bgcolor: 'transparent',
     plot_bgcolor: 'transparent',
-    font: { color: '#9ca3af' },
+    font: { color: '#64748b' },
     margin: { t: 30, r: 30, b: 50, l: 50 },
     showlegend: true,
-    legend: { font: { color: '#9ca3af' } }
+    legend: { font: { color: '#64748b' } }
 };
 
 export function ChartRenderer({ chart }: ChartRendererProps) {
@@ -53,7 +53,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             <YAxis stroke="#9ca3af" />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#ffffff',
                                     border: '1px solid #374151',
                                     borderRadius: '8px'
                                 }}
@@ -84,7 +84,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             <YAxis stroke="#9ca3af" />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#ffffff',
                                     border: '1px solid #374151',
                                     borderRadius: '8px'
                                 }}
@@ -94,10 +94,17 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                                 <Bar
                                     key={dataset.label}
                                     dataKey={dataset.label}
-                                    fill={dataset.color || COLORS[i % COLORS.length]}
+                                    fill={typeof dataset.backgroundColor === 'string' ? dataset.backgroundColor : (dataset.color || COLORS[i % COLORS.length])}
                                     stackId={chart.type === 'stacked_bar' ? 'stack' : undefined}
                                     radius={[4, 4, 0, 0]}
-                                />
+                                >
+                                    {Array.isArray(dataset.backgroundColor) && transformedData.map((_, index) => (
+                                        <Cell
+                                            key={`cell-${index}`}
+                                            fill={dataset.backgroundColor![index % dataset.backgroundColor!.length]}
+                                        />
+                                    ))}
+                                </Bar>
                             ))}
                         </BarChart>
                     </ResponsiveContainer>
@@ -112,7 +119,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             <YAxis dataKey="name" type="category" stroke="#9ca3af" width={100} />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#ffffff',
                                     border: '1px solid #374151',
                                     borderRadius: '8px'
                                 }}
@@ -140,7 +147,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             <YAxis stroke="#9ca3af" />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#ffffff',
                                     border: '1px solid #374151',
                                     borderRadius: '8px'
                                 }}
@@ -186,7 +193,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             </Pie>
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#ffffff',
                                     border: '1px solid #374151',
                                     borderRadius: '8px'
                                 }}
@@ -206,7 +213,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             <YAxis dataKey="y" type="number" stroke="#9ca3af" name="Y" />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#ffffff',
                                     border: '1px solid #374151',
                                     borderRadius: '8px'
                                 }}
@@ -238,7 +245,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             <Legend />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#ffffff',
                                     border: '1px solid #374151',
                                     borderRadius: '8px'
                                 }}
@@ -282,12 +289,12 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             value: gaugeValue,
                             delta: { reference: gaugeMax * 0.8 },
                             gauge: {
-                                axis: { range: [0, gaugeMax], tickcolor: '#9ca3af' },
+                                axis: { range: [0, gaugeMax], tickcolor: '#64748b' },
                                 bar: { color: COLORS[0] },
-                                bgcolor: '#1f2937',
-                                bordercolor: '#374151',
+                                bgcolor: '#ffffff',
+                                bordercolor: '#e2e8f0',
                                 steps: [
-                                    { range: [0, gaugeMax * 0.5], color: '#374151' },
+                                    { range: [0, gaugeMax * 0.5], color: '#e2e8f0' },
                                     { range: [gaugeMax * 0.5, gaugeMax * 0.8], color: '#4b5563' },
                                     { range: [gaugeMax * 0.8, gaugeMax], color: '#6b7280' }
                                 ],
@@ -379,7 +386,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                             node: {
                                 pad: 15,
                                 thickness: 20,
-                                line: { color: '#374151', width: 0.5 },
+                                line: { color: '#e2e8f0', width: 0.5 },
                                 label: sankeyNodes,
                                 color: COLORS.slice(0, sankeyNodes.length)
                             },

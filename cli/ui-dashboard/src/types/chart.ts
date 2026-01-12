@@ -16,15 +16,17 @@ export interface KPI {
 }
 
 export interface ChartQuery {
-    type: 'sql' | 'api';
+    type?: 'sql' | 'api' | 'script';
     connection?: string;
     sql?: string;
+    script?: string;  // Path to Python script for script-based refresh
 }
 
 export interface ChartDataset {
     label: string;
     values: number[];
     color?: string;
+    backgroundColor?: string | string[];
 }
 
 export interface ChartData {

@@ -1,15 +1,15 @@
 .chart-card {
-    background: linear-gradient(135deg, rgba(30, 30, 45, 0.95), rgba(20, 20, 35, 0.98));
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 1.5rem;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--card-shadow);
 }
 
 .chart-card:hover {
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+    border-color: var(--accent);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     transform: translateY(-2px);
 }
 
@@ -28,13 +28,13 @@
 .chart-card-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #f3f4f6;
+    color: var(--text-primary);
     margin: 0 0 0.25rem 0;
 }
 
 .chart-card-description {
     font-size: 0.85rem;
-    color: #9ca3af;
+    color: var(--text-secondary);
     margin: 0;
 }
 
@@ -44,18 +44,18 @@
     justify-content: center;
     width: 32px;
     height: 32px;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: transparent;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    color: #818cf8;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .chart-refresh-btn:hover {
-    background: rgba(99, 102, 241, 0.25);
-    border-color: rgba(99, 102, 241, 0.5);
-    color: #a5b4fc;
+    background: var(--bg-primary);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .chart-refresh-btn:active {
@@ -72,12 +72,12 @@
 .chart-card-footer {
     margin-top: 1rem;
     padding-top: 0.75rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-color);
 }
 
 .last-refreshed {
     font-size: 0.75rem;
-    color: #6b7280;
+    color: var(--text-secondary);
 }
 
 /* Table styles */
@@ -96,21 +96,21 @@
 .chart-table td {
     padding: 0.75rem 1rem;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .chart-table th {
-    color: #9ca3af;
+    color: var(--text-secondary);
     font-weight: 500;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--bg-primary);
 }
 
 .chart-table td {
-    color: #e5e7eb;
+    color: var(--text-primary);
 }
 
 .chart-table tr:hover td {
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(99, 102, 241, 0.05);
 }
 
 /* Fallback warning */

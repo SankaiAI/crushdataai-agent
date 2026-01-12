@@ -3,9 +3,14 @@ import { getConnection } from '../connections';
 import { ChartQuery, ChartData } from '../types/dashboard';
 import { PostgreSQLConnector } from '../connectors/postgresql';
 import { MySQLConnector } from '../connectors/mysql';
-// import { BigQueryConnector } from '../connectors/bigquery';
-// import { SnowflakeConnector } from '../connectors/snowflake';
+import { BigQueryConnector, SnowflakeConnector } from '../connectors/cloud';
+import { RedshiftConnector } from '../connectors/redshift';
+import { MSSQLConnector } from '../connectors/mssql';
+import { ClickHouseConnector } from '../connectors/clickhouse';
+import { DatabricksConnector } from '../connectors/databricks';
+import { MongoDBConnector } from '../connectors/mongodb';
 import { ShopifyConnector } from '../connectors/shopify';
+import { CSVConnector } from '../connectors/csv';
 
 export class QueryExecutor {
     static async execute(query: ChartQuery): Promise<ChartData> {
@@ -34,24 +39,64 @@ export class QueryExecutor {
                 result = await connector.executeQuery(connectionConfig, query.sql);
                 break;
             }
-            // case 'bigquery': {
-            //     const connector = new BigQueryConnector();
-            //     if (!query.sql) throw new Error('SQL query required for BigQuery');
-            //     result = await connector.executeQuery(connectionConfig, query.sql);
-            //     break;
-            // }
-            // case 'snowflake': {
-            //     const connector = new SnowflakeConnector();
-            //     if (!query.sql) throw new Error('SQL query required for Snowflake');
-            //     result = await connector.executeQuery(connectionConfig, query.sql);
-            //     break;
-            // }
+            case 'bigquery': {
+                const connector = new BigQueryConnector();
+                if (!query.sql) throw new Error('SQL query required for BigQuery');
+                result = await connector.executeQuery(connectionConfig, query.sql);
+                break;
+            }
+            case 'snowflake': {
+                const connector = new SnowflakeConnector();
+                if (!query.sql) throw new Error('SQL query required for Snowflake');
+                result = await connector.executeQuery(connectionConfig, query.sql);
+                break;
+            }
             case 'shopify': {
                 const connector = new ShopifyConnector();
                 // For Shopify, query.sql is treated as the table name/endpoint
                 const tableName = query.sql?.trim() || 'orders';
-                // Fetch first page, limit 1000
-                const tableData = await connector.getData(connectionConfig, tableName, 1, 1000);
+                // Shopify API max is 250 per request
+                const tableData = await connector.getData(connectionConfig, tableName, 1, 250);
+                result = tableData.rows;
+                break;
+            }
+            case 'csv': {
+                const connector = new CSVConnector();
+                // CSV simply reads the file path from connection config
+                // fetch 1000 rows max for visualization performance
+                const tableData = await connector.getData(connectionConfig, 'csv', 1, 1000);
+                result = tableData.rows;
+                break;
+            }
+            case 'redshift': {
+                const connector = new RedshiftConnector();
+                if (!query.sql) throw new Error('SQL query required for Redshift');
+                result = await connector.executeQuery(connectionConfig, query.sql);
+                break;
+            }
+            case 'sqlserver': {
+                const connector = new MSSQLConnector();
+                if (!query.sql) throw new Error('SQL query required for SQL Server');
+                result = await connector.executeQuery(connectionConfig, query.sql);
+                break;
+            }
+            case 'clickhouse': {
+                const connector = new ClickHouseConnector();
+                if (!query.sql) throw new Error('SQL query required for ClickHouse');
+                result = await connector.executeQuery(connectionConfig, query.sql);
+                break;
+            }
+            case 'databricks': {
+                const connector = new DatabricksConnector();
+                if (!query.sql) throw new Error('SQL query required for Databricks');
+                result = await connector.executeQuery(connectionConfig, query.sql);
+                break;
+            }
+            case 'mongodb': {
+                const connector = new MongoDBConnector();
+                // Treat query.sql as collection name for simple refresh, similar to Shopify
+                const collectionName = query.sql?.trim() || 'users';
+                const tableData = await connector.getData(connectionConfig, collectionName, 1, 1000);
                 result = tableData.rows;
                 break;
             }

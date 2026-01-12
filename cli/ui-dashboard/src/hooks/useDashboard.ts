@@ -62,6 +62,29 @@ export function useDashboard() {
         }
     }, [currentDashboard]);
 
+    // Refresh entire dashboard (runs script)
+    const refreshDashboard = useCallback(async () => {
+        if (!currentDashboard) return;
+
+        try {
+            setLoading(true);
+            const response = await fetch(`/api/dashboards/${currentDashboard.id}/refresh`, {
+                method: 'POST'
+            });
+            if (!response.ok) throw new Error('Failed to refresh dashboard');
+            const updatedDashboard = await response.json();
+            setCurrentDashboard(updatedDashboard);
+            setError(null);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to refresh');
+        } finally {
+            setLoading(false);
+        }
+    }, [currentDashboard]);
+
+    // Check if dashboard uses script-based refresh (all charts share same script)
+    const usesScriptRefresh = currentDashboard?.charts.some(c => c.query?.script) ?? false;
+
     // Load dashboards on mount and setup SSE listener
     useEffect(() => {
         fetchDashboards();
@@ -116,6 +139,8 @@ export function useDashboard() {
         error,
         fetchDashboards,
         fetchDashboard,
-        refreshChart
+        refreshChart,
+        refreshDashboard,
+        usesScriptRefresh
     };
 }

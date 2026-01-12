@@ -213,6 +213,43 @@ FROM table;
        json.dump(dashboard, f, indent=2)
    ```
 
+### 5b. Making Charts Refreshable (Recommended)
+
+To allow the user to refresh data directly from the dashboard:
+1. Include a `query` object in the chart definition.
+2. Run `npx crushdataai connections` to list available connection names (this is secure - no passwords shown).
+3. Set `connection` to one of the listed names.
+4. Set `sql` to the query used to generate the data.
+
+> **SECURITY**: Never read `.env` directly to find connection names. Always use `npx crushdataai connections`.
+
+```json
+"query": {
+    "connection": "my_postgres_db",
+    "sql": "SELECT date, revenue FROM sales WHERE..."
+}
+```
+
+**Database Specifics:**
+- **SQL/Databases**: Provide the full SQL query.
+- **Shopify**: Provide the resource name (e.g. `orders`).
+- **CSV**: Provide the connection name. `sql` is ignored but required (set to "default").
+- **MongoDB**: Provide the collection name in the `sql` field.
+
+**Script-Based Refresh (for Python-aggregated charts):**
+
+If your chart requires Python aggregation (e.g., grouping, custom calculations), use `script` instead of `connection`:
+
+```json
+"query": {
+    "script": "analysis/my_dashboard_script.py"
+}
+```
+
+When the user clicks Refresh, the CLI will **re-run your Python script**. The script should update the dashboard JSON file with fresh aggregated data.
+
+> **TIP**: Use `script` for Shopify/API charts that need aggregation. Use `connection` + `sql` only for SQL databases where the query returns pre-formatted chart data.
+
 3. **Tell user:**
    > "Dashboard ready! Run `npx crushdataai dashboard` to view."
 
