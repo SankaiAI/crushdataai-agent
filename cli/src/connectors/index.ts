@@ -32,6 +32,7 @@ export interface Connector {
     getData(connection: Connection, tableName: string, page: number, limit: number): Promise<TableData>;
     getSchema(connection: Connection, tableName: string): Promise<ColumnInfo[]>;
     getSnippet(connection: Connection, lang: string): string;
+    executeQuery?(connection: Connection, query: string): Promise<any[]>; // Optional method for running raw queries
 }
 
 export class ConnectorRegistry {

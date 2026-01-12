@@ -62,10 +62,45 @@ export function useDashboard() {
         }
     }, [currentDashboard]);
 
-    // Load dashboards on mount
+    // Load dashboards on mount and setup SSE listener
     useEffect(() => {
         fetchDashboards();
-    }, [fetchDashboards]);
+
+        // Setup SSE connection
+        const eventSource = new EventSource('/api/events');
+
+        eventSource.onopen = () => {
+            console.log('Connected to dashboard event stream');
+        };
+
+        eventSource.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.type === 'dashboard-update') {
+                    console.log(' Dashboard update received:', data.id);
+
+                    // Always refresh the list to catch name/metadata changes
+                    fetchDashboards();
+
+                    // If currently viewing the updated dashboard, refresh it
+                    if (currentDashboard && currentDashboard.id === data.id) {
+                        fetchDashboard(data.id);
+                    }
+                }
+            } catch (err) {
+                console.warn('Error parsing event data:', err);
+            }
+        };
+
+        eventSource.onerror = (err) => {
+            console.warn('EventSource failed:', err);
+            eventSource.close();
+        };
+
+        return () => {
+            eventSource.close();
+        };
+    }, [fetchDashboards, currentDashboard?.id]); // Depend on ID, not full dashboard object to avoid loop
 
     // Auto-select first dashboard if available
     useEffect(() => {

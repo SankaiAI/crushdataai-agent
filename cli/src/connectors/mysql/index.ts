@@ -187,5 +187,28 @@ finally:
 
         return `# Language ${lang} not supported for MySQL connector yet.`;
     }
+
+    async executeQuery(connection: Connection, query: string): Promise<any[]> {
+        console.log(`[MySQL] executeQuery called for ${connection.name}`);
+
+        let conn: mysql.Connection | null = null;
+        try {
+            conn = await mysql.createConnection({
+                host: connection.host,
+                port: connection.port || 3306,
+                user: connection.user,
+                password: connection.password || '',
+                database: connection.database
+            });
+
+            const [rows] = await conn.execute<mysql.RowDataPacket[]>(query);
+            return rows as any[];
+        } catch (error: any) {
+            console.error(`[MySQL] executeQuery failed:`, error.message);
+            throw new Error(`Failed to execute query: ${error.message}`);
+        } finally {
+            if (conn) await conn.end();
+        }
+    }
 }
 

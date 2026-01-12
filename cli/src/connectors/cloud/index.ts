@@ -151,6 +151,17 @@ print(df.head())
 
         return `# Language ${lang} not supported for BigQuery connector yet.`;
     }
+    async executeQuery(connection: Connection, query: string): Promise<any[]> {
+        console.log(`[BigQuery] executeQuery called for ${connection.name}`);
+        const bigquery = this.createClient(connection);
+        try {
+            const [rows] = await bigquery.query(query);
+            return rows;
+        } catch (error: any) {
+            console.error(`[BigQuery] executeQuery failed:`, error.message);
+            throw new Error(`Failed to execute query: ${error.message}`);
+        }
+    }
 }
 
 export class SnowflakeConnector implements Connector {
@@ -176,7 +187,7 @@ export class SnowflakeConnector implements Connector {
         });
     }
 
-    private executeQuery(conn: snowflake.Connection, query: string): Promise<any[]> {
+    private executeInternal(conn: snowflake.Connection, query: string): Promise<any[]> {
         return new Promise((resolve, reject) => {
             conn.execute({
                 sqlText: query,
@@ -189,6 +200,20 @@ export class SnowflakeConnector implements Connector {
                 }
             });
         });
+    }
+
+    async executeQuery(connection: Connection, query: string): Promise<any[]> {
+        console.log(`[Snowflake] executeQuery called for ${connection.name}`);
+        let conn: snowflake.Connection | null = null;
+        try {
+            conn = await this.createConnection(connection);
+            return await this.executeInternal(conn, query);
+        } catch (error: any) {
+            console.error(`[Snowflake] executeQuery failed:`, error.message);
+            throw new Error(`Failed to execute query: ${error.message}`);
+        } finally {
+            if (conn) conn.destroy(() => { });
+        }
     }
 
     async test(connection: Connection): Promise<boolean> {
@@ -212,7 +237,7 @@ export class SnowflakeConnector implements Connector {
         let conn: snowflake.Connection | null = null;
         try {
             conn = await this.createConnection(connection);
-            await this.executeQuery(conn, 'SELECT CURRENT_VERSION()');
+            await this.executeInternal(conn, 'SELECT CURRENT_VERSION()');
             console.log(`[Snowflake] Connection test successful for ${connection.name}`);
             return true;
         } catch (error: any) {
@@ -229,7 +254,7 @@ export class SnowflakeConnector implements Connector {
         let conn: snowflake.Connection | null = null;
         try {
             conn = await this.createConnection(connection);
-            const rows = await this.executeQuery(conn, 'SHOW TABLES');
+            const rows = await this.executeInternal(conn, 'SHOW TABLES');
 
             return rows.map((row: any) => ({
                 name: row.name || row.TABLE_NAME,
@@ -252,10 +277,10 @@ export class SnowflakeConnector implements Connector {
             conn = await this.createConnection(connection);
             const offset = (page - 1) * limit;
 
-            const countRows = await this.executeQuery(conn, `SELECT COUNT(*) as TOTAL FROM "${tableName}"`);
+            const countRows = await this.executeInternal(conn, `SELECT COUNT(*) as TOTAL FROM "${tableName}"`);
             const totalRows = countRows[0]?.TOTAL || 0;
 
-            const rows = await this.executeQuery(conn, `SELECT * FROM "${tableName}" LIMIT ${limit} OFFSET ${offset}`);
+            const rows = await this.executeInternal(conn, `SELECT * FROM "${tableName}" LIMIT ${limit} OFFSET ${offset}`);
 
             const columns = rows.length > 0 ? Object.keys(rows[0]) : [];
             const totalPages = Math.ceil(totalRows / limit) || 1;
@@ -286,7 +311,7 @@ export class SnowflakeConnector implements Connector {
         let conn: snowflake.Connection | null = null;
         try {
             conn = await this.createConnection(connection);
-            const rows = await this.executeQuery(conn, `DESCRIBE TABLE "${tableName}"`);
+            const rows = await this.executeInternal(conn, `DESCRIBE TABLE "${tableName}"`);
 
             return rows.map((row: any) => ({
                 name: row.name || row.COLUMN_NAME,

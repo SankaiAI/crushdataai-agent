@@ -51,6 +51,7 @@ export interface Chart {
 }
 
 export interface Dashboard {
+    id: string;
     metadata: DashboardMetadata;
     kpis: KPI[];
     charts: Chart[];

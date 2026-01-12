@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Dashboard, DashboardListItem } from '../types/dashboard';
+import { Dashboard, DashboardListItem, Chart } from '../types/dashboard';
+import { QueryExecutor } from '../services/query-executor';
 
 const router = Router();
 
@@ -59,7 +60,7 @@ router.get('/dashboards/:id', (req: Request, res: Response) => {
         }
 
         const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        res.json(content);
+        res.json({ id, ...content });
     } catch (error) {
         console.error('Error reading dashboard:', error);
         res.status(500).json({ error: 'Failed to read dashboard' });
@@ -67,26 +68,93 @@ router.get('/dashboards/:id', (req: Request, res: Response) => {
 });
 
 // Refresh a chart's data (placeholder for now - would re-run query)
-router.post('/charts/:id/refresh', (req: Request, res: Response) => {
+router.post('/charts/:id/refresh', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
+        const dashboardsDir = getDashboardsDir();
 
-        // For now, just return a success message
-        // In the future, this would:
-        // 1. Find the chart in a dashboard
-        // 2. Re-run its query against the data source
-        // 3. Update the chart data
-        // 4. Save the updated dashboard
+        // 1. Find the chart in any dashboard
+        // We have to search all dashboards because we don't know which one calls it
+        // In a real DB we'd have a chart table, but here we scan JSONs
+        const files = fs.readdirSync(dashboardsDir).filter(file => file.endsWith('.json'));
 
-        res.json({
-            message: 'Refresh not yet implemented',
-            chartId: id,
-            lastRefreshed: new Date().toISOString()
-        });
+        let targetDashboard: Dashboard | null = null;
+        let targetDashboardFile: string = '';
+        let targetChart: Chart | null = null;
+
+        for (const file of files) {
+            const filePath = path.join(dashboardsDir, file);
+            const dashboard = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as Dashboard;
+            const chart = dashboard.charts.find(c => c.id === id);
+
+            if (chart) {
+                targetDashboard = dashboard;
+                targetDashboardFile = filePath;
+                targetChart = chart;
+                break;
+            }
+        }
+
+        if (!targetDashboard || !targetChart || !targetDashboardFile) {
+            return res.status(404).json({ error: 'Chart not found' });
+        }
+
+        // 2. Execute Query
+        if (!targetChart.query || !targetChart.query.connection) {
+            return res.status(400).json({ error: 'Chart has no query configuration' });
+        }
+
+        console.log(`Refreshing chart ${id} using connection ${targetChart.query.connection}...`);
+        const newData = await QueryExecutor.execute(targetChart.query);
+
+        // 3. Update Dashboard
+        targetChart.data = newData;
+        targetChart.lastRefreshed = new Date().toISOString();
+
+        // Save back to disk
+        fs.writeFileSync(targetDashboardFile, JSON.stringify(targetDashboard, null, 2));
+
+        // 4. Return new data
+        res.json(targetChart);
+
     } catch (error) {
         console.error('Error refreshing chart:', error);
-        res.status(500).json({ error: 'Failed to refresh chart' });
+        res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to refresh chart' });
     }
+});
+
+// SSE Endpoint for file watching
+router.get('/events', (req: Request, res: Response) => {
+    // Set headers for SSE
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders();
+
+    const dashboardsDir = getDashboardsDir();
+    if (!fs.existsSync(dashboardsDir)) {
+        return res.end();
+    }
+
+    console.log('Client connected to SSE stream');
+
+    // Watch for file changes
+    const watcher = fs.watch(dashboardsDir, (eventType, filename) => {
+        if (filename && filename.endsWith('.json')) {
+            console.log(`File changed: ${filename} (${eventType})`);
+            const dashboardId = path.basename(filename, '.json');
+
+            // Send event
+            res.write(`data: ${JSON.stringify({ type: 'dashboard-update', id: dashboardId })}\n\n`);
+        }
+    });
+
+    // Cleanup on close
+    req.on('close', () => {
+        watcher.close();
+        console.log('Client disconnected from SSE stream');
+        res.end();
+    });
 });
 
 export default router;

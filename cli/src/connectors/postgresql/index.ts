@@ -172,5 +172,20 @@ finally:
 
         return `# Language ${lang} not supported for PostgreSQL connector yet.`;
     }
+
+    async executeQuery(connection: Connection, query: string): Promise<any[]> {
+        console.log(`[PostgreSQL] executeQuery called for ${connection.name}`);
+        const client = this.createClient(connection);
+        try {
+            await client.connect();
+            const result = await client.query(query);
+            return result.rows;
+        } catch (error: any) {
+            console.error(`[PostgreSQL] executeQuery failed:`, error.message);
+            throw new Error(`Failed to execute query: ${error.message}`);
+        } finally {
+            await client.end();
+        }
+    }
 }
 
