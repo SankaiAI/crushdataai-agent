@@ -5,8 +5,10 @@ import {
     PieChart, Pie, Cell,
     AreaChart, Area,
     ScatterChart, Scatter,
+    RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
+import Plot from 'react-plotly.js';
 import { Chart } from '../../types/chart';
 
 interface ChartRendererProps {
@@ -18,6 +20,16 @@ const COLORS = [
     '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e', '#f97316',
     '#eab308', '#22c55e', '#14b8a6', '#06b6d4', '#3b82f6'
 ];
+
+// Plotly layout defaults for dark theme
+const PLOTLY_LAYOUT = {
+    paper_bgcolor: 'transparent',
+    plot_bgcolor: 'transparent',
+    font: { color: '#9ca3af' },
+    margin: { t: 30, r: 30, b: 50, l: 50 },
+    showlegend: true,
+    legend: { font: { color: '#9ca3af' } }
+};
 
 export function ChartRenderer({ chart }: ChartRendererProps) {
     // Transform data for Recharts format
@@ -31,6 +43,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
 
     const renderChart = () => {
         switch (chart.type) {
+            // ============ RECHARTS (Tier 1) ============
             case 'line':
                 return (
                     <ResponsiveContainer width="100%" height={300}>
@@ -62,6 +75,7 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
 
             case 'bar':
             case 'stacked_bar':
+            case 'grouped_bar':
                 return (
                     <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={transformedData}>
@@ -183,12 +197,13 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                 );
 
             case 'scatter':
+            case 'bubble':
                 return (
                     <ResponsiveContainer width="100%" height={300}>
                         <ScatterChart>
                             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                            <XAxis dataKey="x" type="number" stroke="#9ca3af" />
-                            <YAxis dataKey="y" type="number" stroke="#9ca3af" />
+                            <XAxis dataKey="x" type="number" stroke="#9ca3af" name="X" />
+                            <YAxis dataKey="y" type="number" stroke="#9ca3af" name="Y" />
                             <Tooltip
                                 contentStyle={{
                                     backgroundColor: '#1f2937',
@@ -202,6 +217,215 @@ export function ChartRenderer({ chart }: ChartRendererProps) {
                     </ResponsiveContainer>
                 );
 
+            case 'radar':
+            case 'spider':
+                return (
+                    <ResponsiveContainer width="100%" height={300}>
+                        <RadarChart data={transformedData}>
+                            <PolarGrid stroke="#374151" />
+                            <PolarAngleAxis dataKey="name" stroke="#9ca3af" />
+                            <PolarRadiusAxis stroke="#9ca3af" />
+                            {chart.data.datasets.map((dataset, i) => (
+                                <Radar
+                                    key={dataset.label}
+                                    name={dataset.label}
+                                    dataKey={dataset.label}
+                                    stroke={dataset.color || COLORS[i % COLORS.length]}
+                                    fill={dataset.color || COLORS[i % COLORS.length]}
+                                    fillOpacity={0.3}
+                                />
+                            ))}
+                            <Legend />
+                            <Tooltip
+                                contentStyle={{
+                                    backgroundColor: '#1f2937',
+                                    border: '1px solid #374151',
+                                    borderRadius: '8px'
+                                }}
+                            />
+                        </RadarChart>
+                    </ResponsiveContainer>
+                );
+
+            // ============ PLOTLY (Tier 2 - Advanced) ============
+            case 'funnel':
+                return (
+                    <Plot
+                        data={[{
+                            type: 'funnel',
+                            y: chart.data.labels,
+                            x: chart.data.datasets[0]?.values || [],
+                            textinfo: 'value+percent initial',
+                            marker: {
+                                color: COLORS.slice(0, chart.data.labels.length)
+                            }
+                        }]}
+                        layout={{
+                            ...PLOTLY_LAYOUT,
+                            width: undefined,
+                            height: 300,
+                            title: undefined
+                        }}
+                        config={{ responsive: true, displayModeBar: false }}
+                        style={{ width: '100%', height: '300px' }}
+                    />
+                );
+
+            case 'gauge':
+                const gaugeValue = chart.data.datasets[0]?.values[0] || 0;
+                const gaugeMax = chart.data.datasets[0]?.values[1] || 100;
+                return (
+                    <Plot
+                        data={[{
+                            type: 'indicator',
+                            mode: 'gauge+number+delta',
+                            value: gaugeValue,
+                            delta: { reference: gaugeMax * 0.8 },
+                            gauge: {
+                                axis: { range: [0, gaugeMax], tickcolor: '#9ca3af' },
+                                bar: { color: COLORS[0] },
+                                bgcolor: '#1f2937',
+                                bordercolor: '#374151',
+                                steps: [
+                                    { range: [0, gaugeMax * 0.5], color: '#374151' },
+                                    { range: [gaugeMax * 0.5, gaugeMax * 0.8], color: '#4b5563' },
+                                    { range: [gaugeMax * 0.8, gaugeMax], color: '#6b7280' }
+                                ],
+                                threshold: {
+                                    line: { color: '#22c55e', width: 4 },
+                                    thickness: 0.75,
+                                    value: gaugeMax * 0.9
+                                }
+                            }
+                        }]}
+                        layout={{
+                            ...PLOTLY_LAYOUT,
+                            width: undefined,
+                            height: 300
+                        }}
+                        config={{ responsive: true, displayModeBar: false }}
+                        style={{ width: '100%', height: '300px' }}
+                    />
+                );
+
+            case 'treemap':
+                // Treemap expects labels and parent structure
+                const treemapLabels = chart.data.labels;
+                const treemapValues = chart.data.datasets[0]?.values || [];
+                const treemapParents = chart.data.datasets[1]?.values?.map(String) || treemapLabels.map(() => '');
+
+                return (
+                    <Plot
+                        data={[{
+                            type: 'treemap',
+                            labels: treemapLabels,
+                            parents: treemapParents,
+                            values: treemapValues,
+                            textinfo: 'label+value+percent parent',
+                            marker: {
+                                colors: COLORS.slice(0, treemapLabels.length)
+                            }
+                        }]}
+                        layout={{
+                            ...PLOTLY_LAYOUT,
+                            width: undefined,
+                            height: 300
+                        }}
+                        config={{ responsive: true, displayModeBar: false }}
+                        style={{ width: '100%', height: '300px' }}
+                    />
+                );
+
+            case 'heatmap':
+                // Heatmap expects a 2D matrix
+                const heatmapZ = chart.data.datasets.map(ds => ds.values);
+                const heatmapX = chart.data.labels;
+                const heatmapY = chart.data.datasets.map(ds => ds.label);
+
+                return (
+                    <Plot
+                        data={[{
+                            type: 'heatmap',
+                            z: heatmapZ,
+                            x: heatmapX,
+                            y: heatmapY,
+                            colorscale: 'Viridis',
+                            showscale: true
+                        }]}
+                        layout={{
+                            ...PLOTLY_LAYOUT,
+                            width: undefined,
+                            height: 300
+                        }}
+                        config={{ responsive: true, displayModeBar: false }}
+                        style={{ width: '100%', height: '300px' }}
+                    />
+                );
+
+            case 'sankey':
+                // Sankey expects source, target, value arrays
+                // data format: labels = node names, datasets[0] = source indices, 
+                // datasets[1] = target indices, datasets[2] = values
+                const sankeyNodes = chart.data.labels;
+                const sankeySource = chart.data.datasets[0]?.values || [];
+                const sankeyTarget = chart.data.datasets[1]?.values || [];
+                const sankeyValues = chart.data.datasets[2]?.values || [];
+
+                return (
+                    <Plot
+                        data={[{
+                            type: 'sankey',
+                            orientation: 'h',
+                            node: {
+                                pad: 15,
+                                thickness: 20,
+                                line: { color: '#374151', width: 0.5 },
+                                label: sankeyNodes,
+                                color: COLORS.slice(0, sankeyNodes.length)
+                            },
+                            link: {
+                                source: sankeySource,
+                                target: sankeyTarget,
+                                value: sankeyValues,
+                                color: 'rgba(99, 102, 241, 0.3)'
+                            }
+                        }]}
+                        layout={{
+                            ...PLOTLY_LAYOUT,
+                            width: undefined,
+                            height: 350
+                        }}
+                        config={{ responsive: true, displayModeBar: false }}
+                        style={{ width: '100%', height: '350px' }}
+                    />
+                );
+
+            case 'waterfall':
+                const waterfallValues = chart.data.datasets[0]?.values || [];
+                return (
+                    <Plot
+                        data={[{
+                            type: 'waterfall',
+                            orientation: 'v',
+                            x: chart.data.labels,
+                            y: waterfallValues,
+                            connector: { line: { color: '#6b7280' } },
+                            increasing: { marker: { color: '#22c55e' } },
+                            decreasing: { marker: { color: '#ef4444' } },
+                            totals: { marker: { color: '#6366f1' } }
+                        }]}
+                        layout={{
+                            ...PLOTLY_LAYOUT,
+                            width: undefined,
+                            height: 300,
+                            waterfallgap: 0.3
+                        }}
+                        config={{ responsive: true, displayModeBar: false }}
+                        style={{ width: '100%', height: '300px' }}
+                    />
+                );
+
+            // ============ TABLE (Tier 3 - Fallback) ============
             case 'table':
                 return (
                     <div className="chart-table">

@@ -34,7 +34,15 @@ export interface ChartData {
 
 export interface Chart {
     id: string;
-    type: 'line' | 'bar' | 'horizontal_bar' | 'stacked_bar' | 'pie' | 'donut' | 'area' | 'stacked_area' | 'scatter' | 'funnel' | 'gauge' | 'table';
+    type:
+    // Recharts (Tier 1)
+    | 'line' | 'bar' | 'horizontal_bar' | 'stacked_bar' | 'grouped_bar'
+    | 'pie' | 'donut' | 'area' | 'stacked_area'
+    | 'scatter' | 'bubble' | 'radar' | 'spider'
+    // Plotly (Tier 2)
+    | 'funnel' | 'gauge' | 'treemap' | 'heatmap' | 'sankey' | 'waterfall'
+    // Fallback (Tier 3)
+    | 'table';
     title: string;
     description?: string;
     query?: ChartQuery;
