@@ -1,5 +1,5 @@
 {
-    "name": "crushdataai",
+    "name": "crushdata",
     "version": "1.2.19",
     "description": "CLI to install CrushData AI data analyst skill for AI coding assistants",
     "main": "dist/index.js",
