@@ -19,10 +19,10 @@ CrushData AI provides:
 ### Install via CLI
 
 ```bash
-npm install -g crushdataai
+npm install -g crushdata
 ```
 
-### What `npm install -g crushdataai` Does
+### What `npm install -g crushdata` Does
 
 The `-g` flag means **Global Install**:
 
@@ -35,13 +35,13 @@ The `-g` flag means **Global Install**:
 Then in any project:
 ```bash
 cd your-project
-crushdataai init --ai all    # All AI IDEs
-crushdataai init --ai claude # Claude Code only
+crushdata init --ai all    # All AI IDEs
+crushdata init --ai claude # Claude Code only
 ```
 
-### What `crushdataai init` Does
+### What `crushdata init` Does
 
-When you run `crushdataai init --ai all`, the CLI:
+When you run `crushdata init --ai all`, the CLI:
 
 1. **Creates `.shared/data-analyst/`** - Contains the BM25 search engine and 13 CSV knowledge databases (~400 rows of data analyst patterns)
 
@@ -61,12 +61,12 @@ When you run `crushdataai init --ai all`, the CLI:
 ### Updating
 To update the CLI and refresh your project's AI skill files:
 ```bash
-npm install -g crushdataai@latest
+npm install -g crushdata@latest
 # Update specific IDE (recommended):
-crushdataai init --ai cursor --force
+crushdata init --ai cursor --force
 
 # Or update everything:
-crushdataai init --force
+crushdata init --force
 ```
 
 ## 🔌 Data Connections (New in v1.2)
@@ -77,11 +77,11 @@ CrushData AI now features a **Connection Manager** to securely handle your data 
 Run the connect command to open the management UI:
 
 ```bash
-crushdataai connect
+crushdata connect
 ```
 
 - **Supported Types**: CSV, MySQL, PostgreSQL, Shopify, BigQuery, Snowflake
-- **Private & Secure**: Credentials are stored **locally** on your machine (`~/.crushdataai/connections.json`). They are **never** uploaded to any server or included in the npm package.
+- **Private & Secure**: Credentials are stored **locally** on your machine (`~/.crushdata/connections.json`). They are **never** uploaded to any server or included in the npm package.
 
 ![CrushData AI Connection Manager](assets/crushdataai-data-connection-ui.png)
 
@@ -90,7 +90,7 @@ crushdataai connect
 
 ### 2. View Saved Connections
 ```bash
-crushdataai connections
+crushdata connections
 ```
 
 ## 📈 Data Visualization (New in v1.3)
@@ -102,10 +102,10 @@ Run the dashboard command to open the local React-based viewer:
 
 ```bash
 # Using installed package (generally faster)
-crushdataai dashboard
+crushdata dashboard
 
 # OR using npx (if not in PATH)
-npx crushdataai dashboard
+npx crushdata dashboard
 ```
 
 ![Advanced Dashboard](assets/crushdataai-dashboard.png)
@@ -134,7 +134,7 @@ When you ask an AI agent (like Claude or Cursor) to "create a dashboard", it fol
 
 ### Step 1: Initialize
 ```bash
-crushdataai init --ai all
+crushdata init --ai all
 ```
 
 ### Step 2: Use in AI IDE
@@ -146,7 +146,7 @@ The skill activates automatically (Claude) or via slash command (others).
 2. **AI Action**: The AI checks your saved connections.
 3. **AI Action**: The AI runs:
    ```bash
-   npx crushdataai snippet my-shop-data --lang python
+   npx crushdata snippet my-shop-data --lang python
    ```
 4. **Result**: The AI receives the secure code to connect to your data (read-only) and proceeds with analysis.
 

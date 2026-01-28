@@ -34,7 +34,7 @@ export interface ConnectionsConfig {
 
 // Get config directory
 function getConfigDir(): string {
-    return path.join(os.homedir(), '.crushdataai');
+    return path.join(os.homedir(), '.crushdata');
 }
 
 function getConfigPath(): string {

@@ -21,7 +21,7 @@ export function EmptyState() {
                 </ol>
             </div>
             <div className="empty-state-hint">
-                <code>npx crushdataai dashboard</code> will automatically display them here.
+                <code>npx crushdata dashboard</code> will automatically display them here.
             </div>
         </div>
     );
